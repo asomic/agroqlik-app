@@ -1,0 +1,7 @@
+{
+  "name": "agroqlik",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
