@@ -1,12 +1,57 @@
 <ion-header>
   <ion-toolbar>
+
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/dashboard"></ion-back-button>
+      <ion-back-button text="Atrás"></ion-back-button>
     </ion-buttons>
-    <ion-title>buscar trabajador</ion-title>
+
+    <ion-title>
+      Buscar Trabajador
+    </ion-title>
+
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-<ion-button [routerLink]="['/worker-day/1']">trabajador</ion-button>
+<ion-content class="app">
+  <!-- <ion-button [routerLink]="['/worker-day/1']">trabajador</ion-button> -->
+
+  <form action="" class="search-worker-form">
+    <input class="worker-form-input" type="text" placeholder="Buscar por nombre o apellido">
+  </form>
+
+  <div class="workers-list">
+    
+    <div class="item">
+      <div class="info">
+        <div class="avatar"></div>
+        <div class="text">
+          <h4>Guillermo Espinoza</h4>
+          <p>9.222.222-2</p>
+        </div>
+      </div>
+      <button class="button-go" [routerLink]="['/worker-day/1']">Editar</button>
+    </div>    
+    <div class="item">
+      <div class="info">
+        <div class="avatar"></div>
+        <div class="text">
+          <h4>Alberto Perez</h4>
+          <p>9.222.222-2</p>
+        </div>
+      </div>
+      <button class="button-go">Editar</button>
+    </div>    
+    <div class="item">
+      <div class="info">
+        <div class="avatar"></div>
+        <div class="text">
+          <h4>Cristian Hernandez</h4>
+          <p>9.222.222-2</p>
+        </div>
+      </div>
+      <button class="button-go">Editar</button>
+    </div>
+
+  </div>
+
 </ion-content>

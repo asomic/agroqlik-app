@@ -1,9 +1,25 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar>
     <ion-title>login</ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
-<ion-content>
+<ion-content class="auth">
+
+  <div class="data">
+    <img src="assets/img/logo.png">
+    <form action="">
+      <input type="email" placeholder="Ingrese su correo">
+      <input type="password" placeholder="Ingrese su contraseña">
+      <button>Entrar</button>
+      <a [href]="['forgot']">Recuperar Contraseña</a>
+    </form>
+  </div>
+  
+  <div class="credits">
+    <a href="https:/asomic.com">
+      <img src="assets/img/asomic.png">
+    </a>
+  </div>
 
 </ion-content>

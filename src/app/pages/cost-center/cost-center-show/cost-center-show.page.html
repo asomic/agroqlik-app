@@ -1,12 +1,96 @@
 <ion-header>
   <ion-toolbar>
+
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/dashboard"></ion-back-button>
+      <ion-back-button text="Atrás"></ion-back-button>
     </ion-buttons>
-    <ion-title>Cuartel</ion-title>
+
+    <ion-title>
+      Resumen del Cuartel
+    </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/worker-find']">
+        <ion-icon name="search-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="app">
+
+  <div class="cost-center-header">
+    <h1>
+      Cuartel fruta
+    </h1>
+    <div class="variety">
+      <img src="/assets/img/leaf-icon.png">
+      <p>
+        Cerezo - Lapins
+      </p>
+    </div>
+    <div class="location">
+      <img src="/assets/img/locate-icon.png">
+      <p>
+        Esta al lado del otro cuartel pero mas abajo del otro cuartel
+      </p>
+    </div>
+  </div>
+
+  <div class="cost-center-stats">
+    <div class="total-workers">
+      <div class="item">
+        <h2>81</h2>
+        <p>Personas</p>
+      </div>
+    </div>
+    <div class="total-amount">
+      <div class="item">
+        <h2>$30.000</h2>
+        <p>Total</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="workers">
+    <h1>Trabajadores del Cuartel</h1>
+
+    <div class="card worker-card">
+      <div class="card-header">
+        <div class="worker-header">
+          <h3>Guillermo Espinosa</h3>
+          <p>18.222.222-2</p>
+        </div>
+        <div class="worker-att">
+          <!-- Aqui va el switch -->
+        </div>
+      </div>
+      <div class="card-body">
+        <p><b>2 Actividades</b></p>
+        <p>Cuartel Furta / Poda <span>⭐</span></p>
+        <p>Cuartel Fruta 2 / Poda</p>
+      </div>
+      <button class="button-edit">Editar</button>
+    </div>
+
+    <div class="card worker-card">
+      <div class="card-header">
+        <div class="worker-header">
+          <h3>Guillermo Espinosa</h3>
+          <p>18.222.222-2</p>
+        </div>
+        <div class="worker-att">
+          <!-- Aqui va el switch -->
+        </div>
+      </div>
+      <div class="card-body">
+        <p><b>2 Actividades</b></p>
+        <p>Cuartel Furta / Poda <span>⭐</span></p>
+        <p>Cuartel Fruta 2 / Poda</p>
+      </div>
+      <button class="button-edit">Editar</button>
+    </div>
+  </div>
 
 </ion-content>

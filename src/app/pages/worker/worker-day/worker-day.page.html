@@ -1,12 +1,56 @@
 <ion-header>
   <ion-toolbar>
+
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/dashboard"></ion-back-button>
+      <ion-back-button text="Atrás"></ion-back-button>
     </ion-buttons>
-    <ion-title>dia trabajador</ion-title>
+
+    <ion-title>
+      Editar Labores
+    </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/worker-find']">
+        <ion-icon name="search-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="app">
+
+  <div class="the-worker-header">
+    <div class="avatar"></div>
+    <div class="info">
+      <h2>Guillermo Espinosa</h2>
+      <p>9.222.222-2</p>
+    </div>
+  </div>
+
+  <button class="button-go button-the-worker">
+    Nueva Labor
+  </button>
+
+  <div class="activities">
+    
+    <h3>Labores Asignadas</h3>
+
+    <div class="activity-item">
+      <div class="data">
+        <h3>Poda</h3>
+        <p>Cueartel Fruta</p>
+      </div>
+      <div class="buttons">
+        <button class="button-edit">
+          Editar
+        </button>
+        <button class="button-delete">
+          T
+        </button>
+      </div>
+    </div>
+
+  </div>
 
 </ion-content>

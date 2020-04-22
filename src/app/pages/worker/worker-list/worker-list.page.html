@@ -1,9 +1,76 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>worker-list</ion-title>
+
+    <ion-buttons slot="start">
+      <ion-back-button text="Atrás"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>
+      Planilla
+    </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/worker-find']">
+        <ion-icon name="search-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="app">
+
+  <div class="worker-list-header">
+    <h1>
+      Pasar lista<br>
+      <span class="highlighted">23 de Marzo de 2020</span><br>
+      Fundo San Lorenzo
+    </h1>
+  </div>
+
+  <div class="order-by">
+    <select name="seleccionar-orden" id="">
+      <option value="a-z">Ordenar por Nombre (A - Z)</option>
+      <option value="z-a">Ordenar por Nombre - inverso (Z - A)</option>
+    </select>
+  </div>
+
+  <div class="workers">
+    <div class="card worker-card">
+      <div class="card-header">
+        <div class="worker-header">
+          <h3>Guillermo Espinosa</h3>
+          <p>18.222.222-2</p>
+        </div>
+        <div class="worker-att">
+          <!-- Aqui va el switch -->
+        </div>
+      </div>
+      <div class="card-body">
+        <p><b>2 Actividades</b></p>
+        <p>Cuartel Furta / Poda <span>⭐</span></p>
+        <p>Cuartel Fruta 2 / Poda</p>
+      </div>
+      <button class="button-edit" [routerLink]="['/worker-day/1']">Editar</button>
+    </div>
+
+    <div class="card worker-card">
+      <div class="card-header">
+        <div class="worker-header">
+          <h3>Guillermo Espinosa</h3>
+          <p>18.222.222-2</p>
+        </div>
+        <div class="worker-att">
+          <!-- Aqui va el switch -->
+        </div>
+      </div>
+      <div class="card-body">
+        <p><b>2 Actividades</b></p>
+        <p>Cuartel Furta / Poda <span>⭐</span></p>
+        <p>Cuartel Fruta 2 / Poda</p>
+      </div>
+      <button class="button-edit" [routerLink]="['/worker-day/1']">Editar</button>
+    </div>
+  </div>
 
 </ion-content>
