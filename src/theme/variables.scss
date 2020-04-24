@@ -278,12 +278,49 @@ ion-footer {
   }
   ion-toolbar {
     --padding-top: 0px;
-    --padding-bottom: 26px; 
+    --padding-bottom: 22px; 
     --border-color: var(--ultra-light-green);
     width: 92%;
     margin: auto;
     button {
       width: 100%;
+    }
+    .total-wrapper {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: nowrap;
+      width: 92%;
+      margin: auto;
+      .total {
+        p {
+          font-size: 14px;
+          width: 100%;
+          color: var(--black);
+          margin: 0;
+        }
+        h4 {
+          font-size: 21px;
+          width: 100%;
+          color: var(--black);
+          margin: 0;
+          font-weight: 700;
+        }
+      }
+      button {
+        width: 30%;
+      }
+    }
+  }
+  &.footer-worker-list {
+    // border-top: solid 1px var(--border-gray);
+    &:before {
+      display: none;
+    }
+    ion-toolbar {
+      width: 100%;
+      --border-color: var(--border-gray);
+      --padding-top: 18px;
+      --padding-bottom: 18px;
     }
   }
 }
@@ -504,9 +541,9 @@ ion-footer {
           color: var(--black);
         }
       }
-      .worker-att {
+      // .worker-att {
         
-      }
+      // }
     }
     .card-body {
       margin-bottom: 20px;
@@ -656,28 +693,117 @@ form.search-worker-form {
     border-radius: 4px;
     background-color: white;
     border: solid 1px var(--ultra-light-blue);
-    padding: 18px 17px;
-    display: flex;
-    justify-content: space-between;
-    .data {
-      h3 {
-        margin: 0;
-        font-weight: 700;
-        font-size: 18px;
-        // line-height: 120%;
-        color: var(--black);
+    // padding-top: 18px;
+    padding-left: 17px;
+    padding-right: 17px;
+    .excerpt {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 18px;
+      padding-bottom: 18px;
+      .data {
+        h3 {
+          margin: 0;
+          font-weight: 700;
+          font-size: 18px;
+          color: var(--black);
+        }
+        p {
+          margin: 0;
+          font-size: 14px;
+          color: var(--black);
+        }
       }
-      p {
-        margin: 0;
-        font-size: 14px;
-        // line-height: 130%;
-        color: var(--black);
+      .buttons {
+        .button-edit {}
+        .button-delete {
+          margin-left: 8px;
+        }
       }
     }
-    .buttons {
-      .button-edit {}
-      .button-delete {
-        margin-left: 8px;
+    .collapsible {
+      border-top: solid 1px #efefef;
+      padding-top: 18px;
+      .labor {
+        padding-bottom: 18px;
+        .item {
+          &:nth-child(n+2) {
+            padding-top: 18px;
+          }
+          h5 {
+            margin: 0;
+            font-weight: 700;
+            font-size: 16px;
+            margin-bottom: 8px;
+          }
+          select {
+            border-radius: 2px;
+            border: 1px solid #B3B3B3;
+            width: 100%;
+            background-color: white;
+            outline: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            padding: 7px 14px;
+            option {}
+          }
+          input {
+            border-radius: 2px;
+            border: 1px solid #B3B3B3;
+            width: 100%;
+            background-color: white;
+            outline: none;
+            padding: 7px 14px;
+          }
+        }
+      }
+      .bonus {
+        border-top: solid 1px #efefef;
+        padding-top: 18px;
+        padding-bottom: 18px;
+        .header {
+          margin-bottom: 14px;
+          h4 {
+            margin: 0;
+            font-weight: 700;
+            // font-size: 16px;
+          }
+        }
+        .item {
+          padding-bottom: 18px;
+          h5 {
+            margin: 0;
+            font-weight: 700;
+            font-size: 16px;
+            margin-bottom: 8px;
+          }
+          select {
+            border-radius: 2px;
+            border: 1px solid #B3B3B3;
+            width: 100%;
+            background-color: white;
+            outline: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            padding: 7px 14px;
+            option {}
+          }
+          input {
+            border-radius: 2px;
+            border: 1px solid #B3B3B3;
+            width: 100%;
+            background-color: white;
+            outline: none;
+            padding: 7px 14px;
+
+          }
+        }
+        button {
+          width: 100%;
+        }
       }
     }
   }

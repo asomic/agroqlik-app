@@ -37,20 +37,88 @@
     <h3>Labores Asignadas</h3>
 
     <div class="activity-item">
-      <div class="data">
-        <h3>Poda</h3>
-        <p>Cueartel Fruta</p>
+      <!-- Excerpt -->
+      <div class="excerpt">
+        <div class="data">
+          <h3>Poda</h3>
+          <p>Cuartel Fruta</p>
+        </div>
+        <div class="buttons">
+          <button class="button-edit">
+            Editar
+          </button>
+          <button class="button-delete">
+            T
+          </button>
+        </div>
       </div>
-      <div class="buttons">
-        <button class="button-edit">
-          Editar
-        </button>
-        <button class="button-delete">
-          T
-        </button>
-      </div>
-    </div>
+      <!-- Info -->
+      <!-- <form action=""></form> -->
+      <form action="" class="collapsible">
+        <div class="labor">
+          <div class="item">
+            <h5>Cuartel</h5>
+            <select name="cuartel">
+              <option value="CuartelFruta" selected>Cuartel Fruta</option>
+              <option value="CuartelFruta2">Cuartel Fruta 2</option>
+            </select>
+          </div>
+          <div class="item">
+            <h5>Labor</h5>
+            <select name="labor">
+              <option value="laborPoda" selected>Poda</option>
+              <option value="laborOtra">Otra</option>
+            </select>
+          </div>
+          <div class="item">
+            <h5>Tipo de Labor</h5>
+            <select name="tipoLabor">
+              <option value="trato" selected>Trato</option>
+              <option value="otra">Otra</option>
+            </select>
+          </div>
+          <div class="item">
+            <h5>Cantidad de Labor</h5>
+            <input type="text">         
+          </div>
+          <div class="item">
+            <h5>Valor</h5>
+            <input type="number">         
+          </div>
+        </div>
+        <div class="bonus">
+          <div class="header">
+            <h4>Bonos</h4>
+            <!-- aquí va el switcher -->
+          </div>
+          <div class="item">
+            <h5>Tipo de Bono</h5>
+            <select name="bonusExtra">
+              <option value="extra1">Bono 1</option>
+              <option value="extra2">Bono 2</option>
+            </select>
+          </div>
+          <div class="item">
+            <h5>Valor</h5>
+            <input type="number" placeholder="Ingrese un Valor">
+          </div>
+          <button class="button-go">Agregar otro Bono</button>
+        </div>
+      </form>
 
+    </div>
   </div>
 
 </ion-content>
+
+<ion-footer class="footer-worker-list">
+  <ion-toolbar>
+    <div class="total-wrapper">
+      <div class="total">
+        <p>Total</p>
+        <h4>$00.000</h4>
+      </div>
+      <button class="button-go">Guardar</button>
+    </div>
+  </ion-toolbar>
+</ion-footer>

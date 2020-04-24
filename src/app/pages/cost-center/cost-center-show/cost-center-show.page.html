@@ -71,7 +71,7 @@
         <p>Cuartel Furta / Poda <span>⭐</span></p>
         <p>Cuartel Fruta 2 / Poda</p>
       </div>
-      <button class="button-edit">Editar</button>
+      <button class="button-edit" [routerLink]="['/worker-day/1']">Editar</button>
     </div>
 
     <div class="card worker-card">
@@ -89,8 +89,14 @@
         <p>Cuartel Furta / Poda <span>⭐</span></p>
         <p>Cuartel Fruta 2 / Poda</p>
       </div>
-      <button class="button-edit">Editar</button>
+      <button class="button-edit" [routerLink]="['/worker-day/1']">Editar</button>
     </div>
   </div>
 
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <button class="button-go" [routerLink]="['/worker-list']">Pasar Lista</button>
+  </ion-toolbar>
+</ion-footer>
