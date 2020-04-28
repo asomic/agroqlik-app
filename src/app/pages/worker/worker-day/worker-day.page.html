@@ -11,7 +11,7 @@
 
     <ion-buttons slot="end">
       <ion-button [routerLink]="['/worker-find']">
-        <ion-icon name="search-outline"></ion-icon>
+        <ion-icon src="/assets/icon/search.svg"></ion-icon>
       </ion-button>
     </ion-buttons>
 
@@ -36,25 +36,26 @@
     
     <h3>Labores Asignadas</h3>
 
-    <div class="activity-item">
+    <div class="activity-item" *ngFor="let activity of activities; let i = index">
+
       <!-- Excerpt -->
       <div class="excerpt">
         <div class="data">
-          <h3>Poda</h3>
-          <p>Cuartel Fruta</p>
+          <h3>{{activity.nombre}}</h3>
+          <p>{{activity.cuartel}}</p>
         </div>
         <div class="buttons">
-          <button class="button-edit">
-            Editar
+          <button class="button-edit" name="Editar" (click)="toggleCollapsible(i)">
+            <span class="edit" [class.hide-edit]="showEdit[i]">Editar</span>
+            <span class="close" [class.show-close]="showClose[i]">Cerrar</span>
           </button>
           <button class="button-delete">
-            T
+            <img src="/assets/icon/delete.svg">
           </button>
         </div>
       </div>
       <!-- Info -->
-      <!-- <form action=""></form> -->
-      <form action="" class="collapsible">
+      <form action="" class="collapsible" [class.visible]="showCollapsible[i]">
         <div class="labor">
           <div class="item">
             <h5>Cuartel</h5>
@@ -89,21 +90,23 @@
         <div class="bonus">
           <div class="header">
             <h4>Bonos</h4>
-            <!-- aquí va el switcher -->
+            <ion-toggle></ion-toggle>
           </div>
-          <div class="item">
-            <h5>Tipo de Bono</h5>
-            <select name="bonusExtra">
-              <option value="extra1">Bono 1</option>
-              <option value="extra2">Bono 2</option>
-            </select>
+          <div class="a-bonus" *ngFor="let bono of activity.bonos">
+            <div class="item">
+              <h5>Tipo de Bono</h5>
+              <select name="bonusExtra">
+                <option value="extra1">Bono 1</option>
+                <option value="extra2">Bono 2</option>
+              </select>
+            </div>
+            <div class="item">
+              <h5>Valor</h5>
+              <input type="number" placeholder="Ingrese un Valor">
+            </div>
           </div>
-          <div class="item">
-            <h5>Valor</h5>
-            <input type="number" placeholder="Ingrese un Valor">
-          </div>
-          <button class="button-go">Agregar otro Bono</button>
         </div>
+        <button class="button-go">Agregar otro Bono</button>
       </form>
 
     </div>

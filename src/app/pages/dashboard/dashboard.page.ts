@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { IonSelect } from '@ionic/angular';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardPage implements OnInit {
 
-  constructor() { }
+  hideList = true;
+  
+  @ViewChild('mySelect', { static: false }) selectRef: IonSelect;
 
+  constructor() { }
+  
   ngOnInit() {
+  }
+
+  openSelect() {
+    // this.select1.open()
+    this.selectRef.open()
   }
 
 }

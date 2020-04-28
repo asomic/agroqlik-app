@@ -11,7 +11,7 @@
 
     <ion-buttons slot="end">
       <ion-button [routerLink]="['/worker-find']">
-        <ion-icon name="search-outline"></ion-icon>
+        <ion-icon src="/assets/icon/search.svg"></ion-icon>
       </ion-button>
     </ion-buttons>
 
@@ -36,14 +36,14 @@
   </div>
 
   <div class="workers">
-    <div class="card worker-card">
+    <div class="card worker-card no-clickeable">
       <div class="card-header">
         <div class="worker-header">
           <h3>Guillermo Espinosa</h3>
           <p>18.222.222-2</p>
         </div>
         <div class="worker-att">
-          <!-- Aqui va el switch -->
+          <ion-toggle></ion-toggle>
         </div>
       </div>
       <div class="card-body">
@@ -61,7 +61,7 @@
           <p>18.222.222-2</p>
         </div>
         <div class="worker-att">
-          <!-- Aqui va el switch -->
+          <ion-toggle></ion-toggle>
         </div>
       </div>
       <div class="card-body">

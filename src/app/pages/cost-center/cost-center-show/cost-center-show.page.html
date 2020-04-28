@@ -11,7 +11,7 @@
 
     <ion-buttons slot="end">
       <ion-button [routerLink]="['/worker-find']">
-        <ion-icon name="search-outline"></ion-icon>
+        <ion-icon src="/assets/icon/search.svg"></ion-icon>
       </ion-button>
     </ion-buttons>
 
@@ -56,7 +56,7 @@
   <div class="workers">
     <h1>Trabajadores del Cuartel</h1>
 
-    <div class="card worker-card">
+    <div class="card worker-card no-clickeable">
       <div class="card-header">
         <div class="worker-header">
           <h3>Guillermo Espinosa</h3>
@@ -71,10 +71,9 @@
         <p>Cuartel Furta / Poda <span>⭐</span></p>
         <p>Cuartel Fruta 2 / Poda</p>
       </div>
-      <button class="button-edit" [routerLink]="['/worker-day/1']">Editar</button>
     </div>
 
-    <div class="card worker-card">
+    <div class="card worker-card no-clickeable">
       <div class="card-header">
         <div class="worker-header">
           <h3>Guillermo Espinosa</h3>
@@ -89,7 +88,6 @@
         <p>Cuartel Furta / Poda <span>⭐</span></p>
         <p>Cuartel Fruta 2 / Poda</p>
       </div>
-      <button class="button-edit" [routerLink]="['/worker-day/1']">Editar</button>
     </div>
   </div>
 

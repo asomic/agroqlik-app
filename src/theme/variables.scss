@@ -182,7 +182,20 @@ ion-content.app {
   --padding-top: 22px;
   --padding-end: 20px;
   --padding-bottom: 36px;
-  --padding-start: 20px; 
+  --padding-start: 20px;
+  // z-index: 2;
+  // position: relative;
+  // &:before {
+  //   content: "";
+  //   background-image: url('../assets/img/lines-background.png');
+  //   background-repeat: no-repeat;
+  //   background-size: contain;
+  //   top: 0;
+  //   position: absolute;
+  //   width: 100%;
+  //   height: 58%;
+  //   z-index: 1;
+  // }
 }
 
 ion-toolbar {
@@ -196,6 +209,10 @@ ion-toolbar {
       height: 24px;
     }
   }
+}
+
+ion-back-button {
+  --color: var(--black) !important;
 }
 
 // COMPONENTS
@@ -233,7 +250,16 @@ ion-toolbar {
   border-radius: 4px;
   box-sizing: border-box;
   padding: 26px 24px;
+  outline: none;
   box-shadow: 4px 10px 14px rgba(13, 93, 86, 0.06);
+  &.no-clickeable {
+    box-shadow: 4px 10px 14px rgba(13, 93, 86, 0);
+  }
+  &:hover,
+  &:active,
+  &:focus {
+    box-shadow: 4px 10px 14px rgba(13, 93, 86, 0);
+  }
 }
 
 .button-edit {
@@ -264,6 +290,10 @@ ion-toolbar {
   font-weight: 600;
   border-radius: 4px;
   padding: 15px 18px;
+}
+
+ion-toggle {
+  --background-checked: var(--green);
 }
 
 ion-footer {
@@ -326,12 +356,35 @@ ion-footer {
 }
 
 // DASHBOARD
+.dash-back {
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  &:before {
+    content: "";
+    background-image: url('../assets/img/lines-background.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    top: 0;
+    position: absolute;
+    width: 100%;
+    height: 58%;
+    // z-index: 1;
+  }
+}
+
 .welcome {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   margin-top: 20px;
   margin-bottom: 38px;
+  position: relative;
+  z-index: 2;
   img {
     width: 20vw;
     margin-bottom: 29px;
@@ -350,10 +403,13 @@ ion-footer {
 .stats {
   display: flex;
   justify-content: space-between;
+  position: relative;
+  z-index: 2;
   &.dashboard-stats {
     margin-bottom: 36px;
     .stat-item {
       width: 31%;
+      background: var(--ultra-light-green);
     }
   }
   &.card-stats {
@@ -364,6 +420,8 @@ ion-footer {
 }
 
 .cost-centers {
+  position: relative;
+  z-index: 2;
   .card {
     &:nth-child(n+2) {
       margin-top: 17px;
@@ -526,6 +584,9 @@ ion-footer {
       margin-top: 15px;
     }
     .card-header {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: nowrap;
       .worker-header {
         margin-bottom: 14px;
         h3 {
@@ -546,7 +607,7 @@ ion-footer {
       // }
     }
     .card-body {
-      margin-bottom: 20px;
+      // margin-bottom: 20px;
       p {
         margin: 0;
         font-size: 14px;
@@ -557,6 +618,7 @@ ion-footer {
       }
     }
     button {
+      margin-top: 20px;
       width: 100%;
     }
   }
@@ -565,14 +627,26 @@ ion-footer {
 // WORKER SEARCH
 form.search-worker-form {
   margin-bottom: 14px;
+  position: relative;
+  img {
+    top: 10px;
+    left: 14px;
+    width: 18px;
+    position: absolute;
+  }
   .worker-form-input {
     width: 100%;
     background: var(--light-green);
-    padding: 10px 12px;
+    padding: 10px 12px 10px 46px;
     border: none;
     color: var(--black);
     outline: none;
     border-radius: 4px;
+    &::placeholder,
+    &:-ms-input-placeholder,
+    &::-ms-input-placeholder {
+      color: var(--black) !important;
+    }
   }
 }
 
@@ -636,8 +710,13 @@ form.search-worker-form {
     border-top: solid 1px var(--ultra-light-blue);
     border-bottom: solid 1px var(--ultra-light-blue);
     padding: 14px 0;
+    outline: none;
     width: 100%;
     background: var(--ultra-light-green);
+    background-repeat: no-repeat;
+    background-image: url('../assets/icon/arrow-down.svg');
+    background-position: right .7em top 50%, 0 0;
+    background-size: .65em auto, 100%;
   }
 }
 
@@ -696,6 +775,10 @@ form.search-worker-form {
     // padding-top: 18px;
     padding-left: 17px;
     padding-right: 17px;
+    overflow: hidden;
+    &:nth-child(n+2) {
+      margin-top: 14px;
+    }
     .excerpt {
       display: flex;
       justify-content: space-between;
@@ -716,20 +799,53 @@ form.search-worker-form {
         }
       }
       .buttons {
-        .button-edit {}
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        .button-edit {
+          .edit {
+            display: block;
+          }
+          .hide-edit {
+            display: none;
+          }
+          .close {
+            display: none;
+          }
+          .show-close {
+            display: block;
+          }
+        }
         .button-delete {
+          padding: 10px 18px;
           margin-left: 8px;
+          img {
+            width: 20px;
+          }
         }
       }
     }
     .collapsible {
-      border-top: solid 1px #efefef;
-      padding-top: 18px;
+      box-sizing: border-box;
+      padding-bottom: 18px;
+      display: none;
+      transition: all ease 0.3s;
+      opacity: 0;
+      visibility: hidden;
+      height: 0%;
+      &.visible {
+        opacity: 1;
+        height: 100%;
+        visibility: visible;
+        display: block !important;
+      }
       .labor {
+        border-top: solid 1px #efefef;
+        padding-top: 18px;
         padding-bottom: 18px;
         .item {
           &:nth-child(n+2) {
-            padding-top: 18px;
+            padding-top: 20px;
           }
           h5 {
             margin: 0;
@@ -747,6 +863,10 @@ form.search-worker-form {
             -moz-appearance: none;
             appearance: none;
             padding: 7px 14px;
+            background-repeat: no-repeat;
+            background-image: url('../assets/icon/arrow-down.svg');
+            background-position: right .7em top 50%, 0 0;
+            background-size: .65em auto, 100%;
             option {}
           }
           input {
@@ -761,50 +881,67 @@ form.search-worker-form {
       }
       .bonus {
         border-top: solid 1px #efefef;
-        padding-top: 18px;
+        padding-top: 22px;
         padding-bottom: 18px;
+        // border: solid 1px #efefef;
         .header {
           margin-bottom: 14px;
+          display: flex;
+          justify-content: space-between;
+          flex-wrap: nowrap;
           h4 {
             margin: 0;
             font-weight: 700;
             // font-size: 16px;
           }
         }
-        .item {
-          padding-bottom: 18px;
-          h5 {
-            margin: 0;
-            font-weight: 700;
-            font-size: 16px;
-            margin-bottom: 8px;
+        .a-bonus {
+          border: solid 1px #efefef;
+          padding: 20px 16px;
+          &:nth-child(n+2) {
+            margin-top: 12px;
           }
-          select {
-            border-radius: 2px;
-            border: 1px solid #B3B3B3;
-            width: 100%;
-            background-color: white;
-            outline: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            padding: 7px 14px;
-            option {}
-          }
-          input {
-            border-radius: 2px;
-            border: 1px solid #B3B3B3;
-            width: 100%;
-            background-color: white;
-            outline: none;
-            padding: 7px 14px;
-
+          .item {
+            &:nth-child(n+2) {
+              padding-top: 16px;
+            }
+            h5 {
+              margin: 0;
+              font-weight: 700;
+              font-size: 16px;
+              margin-bottom: 8px;
+            }
+            select {
+              border-radius: 2px;
+              border: 1px solid #B3B3B3;
+              width: 100%;
+              background-color: white;
+              outline: none;
+              -webkit-appearance: none;
+              -moz-appearance: none;
+              appearance: none;
+              padding: 7px 14px;
+              background-repeat: no-repeat;
+              background-image: url('../assets/icon/arrow-down.svg');
+              background-position: right .7em top 50%, 0 0;
+              background-size: .65em auto, 100%;
+              option {}
+            }
+            input {
+              border-radius: 2px;
+              border: 1px solid #B3B3B3;
+              width: 100%;
+              background-color: white;
+              outline: none;
+              padding: 7px 14px;
+  
+            }
           }
         }
+      }
         button {
           width: 100%;
         }
-      }
     }
   }
 }

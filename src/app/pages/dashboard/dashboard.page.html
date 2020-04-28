@@ -1,9 +1,11 @@
 <ion-header>
   <ion-toolbar>
 
-    <!-- <ion-buttons slot="start">
-      <ion-back-button text="Atrás"></ion-back-button>
-    </ion-buttons> -->
+    <ion-buttons slot="start">
+      <ion-button (click)="openSelect()">
+        <ion-icon src="/assets/icon/locate.svg"></ion-icon>
+      </ion-button>
+    </ion-buttons>
 
     <ion-title>
       <img src="/assets/img/logo.png" alt="">
@@ -11,7 +13,7 @@
 
     <ion-buttons slot="end">
       <ion-button [routerLink]="['/worker-find']">
-        <ion-icon name="search-outline"></ion-icon>
+        <ion-icon src="/assets/icon/search.svg"></ion-icon>
       </ion-button>
     </ion-buttons>
 
@@ -20,7 +22,16 @@
 
 <ion-content class="app">
 
-  <!-- <ion-button [routerLink]="['/login']" >Login</ion-button> -->
+  <ion-item [hidden]='hideList'>
+    <ion-label>Seleccionar un Fundo</ion-label>
+    <ion-select placeholder="Seleccionar un Fundo" #mySelect (ionChange)='openSelect()'>
+      <ion-select-option value="1">Fundo 1</ion-select-option>
+      <ion-select-option value="2">Fundo 2</ion-select-option>
+      <ion-select-option value="3">Fundo 3</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <div class="dash-back"></div>
 
   <div class="welcome">
     <img src="/assets/img/leafs.png">
