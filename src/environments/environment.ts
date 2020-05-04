@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apikey: '6xpyMQ7zXLZwmlkdIzCyh6eupMj4pDEA0cx3cHzf',
+  domain: 'http://agroqlik-api.test',
+  //domain: 'http://agroqlik-api.test',
 };
 
 /*
