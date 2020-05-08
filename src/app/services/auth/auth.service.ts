@@ -11,6 +11,7 @@ import { BehaviorSubject, from } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 //capacitor
 import { Plugins } from '@capacitor/core';
+const { Storage } = Plugins;
 //models
 import { Auth } from '../../models/auth.model';
 
@@ -43,6 +44,17 @@ export class AuthService {
     );
   }
 
+  // public get farmland() {
+  //   return this._auth.asObservable().pipe(
+  //     map(user => {
+  //       if (user.farmland) {
+  //         return user.farmland;
+  //       } else {
+  //         return null;
+  //       }
+  //     })
+  //   );
+  // }
   //verificar si el usuario esta auth 
   public get isAuthenticated() {
       console.log('isAuthenticated');
@@ -82,7 +94,7 @@ export class AuthService {
           username: email,
           password: password,
           grant_type: 'password',
-          client_id: 1,
+          client_id: 2,
           client_secret: environment.apikey,
       });
       const httpOptions = {
@@ -95,16 +107,19 @@ export class AuthService {
                   Authorization: 'Bearer ' + response['access_token']
                 })
               };
+              console.log('auth');
               this._auth.next(
                 new Auth(
                   email,
                   response['access_token'],
                   response['refresh_token'],
                   response['expires_in'],
+                  environment.domain,
+                  null,
                   httpOptions
                 )
               );
-              // console.log(this._auth);
+              console.log(this._auth);
               this.storeUserData(this._auth.value);
               return this._auth.value;
       }));
@@ -119,8 +134,9 @@ export class AuthService {
       return from(Plugins.Storage.get({ key: "auth" })).pipe(
         map(storasgeData => {
           if (!storasgeData || !storasgeData.value) {
-            return null;
+            this.router.navigateByUrl('/login');
           }
+          console.log(storasgeData);
           const parsedData = JSON.parse(storasgeData.value);
           const httpOptions = {
             headers: new HttpHeaders({
@@ -132,6 +148,8 @@ export class AuthService {
             parsedData['_token'],
             parsedData['_refreshToken'],
             parsedData['_tokenExpirationDate'],
+            parsedData['_domain'],
+            parsedData['_farmland'],
             httpOptions
           );
   
@@ -164,8 +182,8 @@ export class AuthService {
     }
 
     authRefresh() {
-
-      if(!this.authRefreshing){
+      console.log('authRefresh');
+      if (!this.authRefreshing) {
         Plugins.Storage.get({ key: "auth" }).then(storasgeData =>{
           if (!storasgeData || !storasgeData.value) {
            this.router.navigateByUrl('/login');
@@ -174,7 +192,7 @@ export class AuthService {
           const data = JSON.stringify({
             grant_type: 'refresh_token',
             refresh_token: parsedData['_refreshToken'],
-            client_id: 1,
+            client_id: 2,
             client_secret: environment.apikey,
           });
           const httpOptions = {
@@ -194,6 +212,8 @@ export class AuthService {
                   response['access_token'],
                   response['refresh_token'],
                   response['expires_in'],
+                  parsedData['_domain'],
+                  parsedData['_farmland'],
                   httpOptions
                 )
               )
@@ -213,5 +233,11 @@ export class AuthService {
       } else {
         console.log(' se esta refrescando');
       }
+    }
+
+    setFarm(id: string) {
+      console.log(id);
+      this._auth.value._farmland = id;
+      this.storeUserData(this._auth.value);
     }
 }

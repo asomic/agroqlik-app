@@ -2,7 +2,7 @@
   <ion-toolbar>
 
     <ion-buttons slot="start">
-      <ion-button (click)="openSelect()">
+      <ion-button (click)="openFarmlandSelect()">
         <ion-icon src="/assets/icon/locate.svg"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -20,14 +20,12 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="app">
+<ion-content class="app" *ngIf="farmland">
 
   <ion-item [hidden]='hideList'>
     <ion-label>Seleccionar un Fundo</ion-label>
-    <ion-select placeholder="Seleccionar un Fundo" #mySelect (ionChange)='openSelect()'>
-      <ion-select-option value="1">Fundo 1</ion-select-option>
-      <ion-select-option value="2">Fundo 2</ion-select-option>
-      <ion-select-option value="3">Fundo 3</ion-select-option>
+    <ion-select placeholder="Seleccionar un Fundo" #myFarmlandSelect (ionChange)='onFarmlandSelect($event)'>
+      <ion-select-option value="{{farmland.id}}" *ngFor="let farmland of farmlandList" >{{farmland.name}}</ion-select-option>
     </ion-select>
   </ion-item>
 
@@ -37,48 +35,49 @@
     <img src="/assets/img/leafs.png">
     <h1>
       <span>Buenos días</span>,<br>
-      Este es el <span class="highlighted">resumen de ayer</span>
+      Este es el <span class="highlighted">resumen de ayer</span><br>
+      {{this.farmland.name}}
     </h1>
   </div>
 
   <div class="stats dashboard-stats">
 
     <div class="stat-item">
-      <h2>148</h2>
+      <h2>{{this.farmland.yesterdayTotal}}</h2>
       <p>Total</p>
     </div>
     <div class="stat-item">
-      <h2>133</h2>
+      <h2>{{this.farmland.yesterdayPresent}}</h2>
       <p>Presentes</p>
     </div>
     <div class="stat-item">
-      <h2>15</h2>
+      <h2>{{this.farmland.yesterdayAbsence}}</h2>
       <p>Ausentes</p>
     </div>
 
   </div>
 
   <div class="cost-centers">
-
-    <div class="card" [routerLink]="['/cost-center-show/1']">
-      <h3>Cuartel fruta</h3>
+    hoy
+    <div class="card" [routerLink]="['/cost-center-show/1']" *ngFor="let costCenter of costCenterList">
+      <h3>{{costCenter.name }}</h3>
       <div class="location">
         <img src="/assets/img/locate-icon.png">
         <p>Al lado de fruta</p>
       </div>
       <div class="stats card-stats">
         <div class="stat-item">
-          <h2>51</h2>
+          <h2>{{costCenter.todayWorkerDays}}</h2>
           <p>Trabajadores</p>
         </div>
         <div class="stat-item">
-          <h2>3</h2>
-          <p>Actividades</p>
+          <h2>{{costCenter.todaylabors}}</h2>
+          <p>Labores</p>
         </div>
       </div>
     </div>
 
-    <div class="card" [routerLink]="['/cost-center-show/1']">
+    <!-- <div class="card" [routerLink]="['/cost-center-show/1']">
       <h3>Cuartel fruta 2</h3>
       <div class="location">
         <img src="/assets/img/locate-icon.png">
@@ -94,7 +93,7 @@
           <p>Actividades</p>
         </div>
       </div>
-    </div>
+    </div> -->
 
   </div>
 

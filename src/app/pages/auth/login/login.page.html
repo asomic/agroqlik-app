@@ -10,10 +10,23 @@
 
   <div class="data">
     <img src="assets/logo.svg">
-    <form action="">
-      <input type="email" placeholder="Ingrese su correo">
-      <input type="password" placeholder="Ingrese su contraseña">
-      <button>Entrar</button>
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+      <input 
+        type="email" 
+        placeholder="Ingrese su correo" 
+        autocapitalize="none"
+        name="email"
+        required
+        ngModel
+      />
+      <input 
+        type="password" 
+        placeholder="Ingrese su contraseña"
+        name="password"
+        required
+        ngModel
+      />
+      <button type="submit">Entrar</button>
       <a [routerLink]="['/forgot']">Recuperar Contraseña</a>
     </form>
   </div>

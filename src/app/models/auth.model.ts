@@ -5,6 +5,8 @@ export class Auth {
         public _token: string,
         public _refreshToken: string,
         public _tokenExpirationDate: string,
+        public _domain: string,
+        public _farmland: string,
         public _header: any
     ) {}
 
@@ -34,7 +36,18 @@ export class Auth {
         }
         return this._tokenExpirationDate;
     }
-
+    get domain() {
+        if ( !this._domain ) {
+            return null;
+        }
+        return this._domain;
+    }
+    get farmland() {
+        if ( !this._farmland ) {
+            return null;
+        }
+        return this._farmland;
+    }
     get header() {
         if ( !this._header ) {
             return null;

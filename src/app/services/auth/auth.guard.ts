@@ -21,8 +21,7 @@ export class AuthGuard implements CanLoad {
   take(1),
   switchMap(
     isAuth => {
-      if(!isAuth) {
-        console.log('sauthRecall');
+      if (!isAuth) {
         return this.authService.authRecall();
       } else {
         return of(isAuth);
@@ -31,7 +30,7 @@ export class AuthGuard implements CanLoad {
   ),
   tap(
     isAuth => {
-      if(!isAuth){
+      if (!isAuth) {
         this.router.navigateByUrl('/login');
       }
     }
