@@ -1,4 +1,11 @@
+// Angular
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Router, ActivatedRoute} from '@angular/router';
+// Services
+import { WorkerService } from '../../../services/worker/worker.service';
+// Models
+import { Worker } from '../../../models/worker.model';
 
 @Component({
   selector: 'app-worker-day',
@@ -6,6 +13,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./worker-day.page.scss'],
 })
 export class WorkerDayPage implements OnInit {
+  workerSubscription: Subscription;
+  public worker: Worker = null;
 
   public activities = [
     {
@@ -45,8 +54,28 @@ export class WorkerDayPage implements OnInit {
   toggleText = true;
   buttonText = 'Editar';
 
-  constructor() {}
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private workerService: WorkerService,
+  ) {}
   ngOnInit() {}
+
+
+  //ionic lifeCicle
+  ionViewWillEnter() {
+    let id = this.activatedRoute.snapshot.paramMap.get('worker');
+
+    this.workerSubscription = this.workerService.getWorker(id).subscribe(
+      response => {
+        console.log(response);
+        this.worker = response;
+        this.workerSubscription.unsubscribe();
+      }
+    );
+
+  }
+
+  // methods 
 
   toggleCollapsible(i) {
     this.showCollapsible[i] = !this.showCollapsible[i];

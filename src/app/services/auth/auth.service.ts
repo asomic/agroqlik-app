@@ -238,6 +238,7 @@ export class AuthService {
     setFarm(id: string) {
       console.log(id);
       this._auth.value._farmland = id;
+      this._auth.next(this._auth.value);
       this.storeUserData(this._auth.value);
     }
 }

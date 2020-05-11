@@ -46,24 +46,26 @@ export class DashboardPage implements OnInit {
       response => {
         this.farmlandList = response;
         this.FarmlandListSubscription.unsubscribe();
-      }
-    );
-    //fundo activo 
-    this.FarmlandSubscription = this.farmlandService.getFarmland().subscribe(
-      response => {
-        this.farmland = response;
-        this.FarmlandSubscription.unsubscribe();
+
+            //fundo activo 
+        this.FarmlandSubscription = this.farmlandService.getFarmland().subscribe(
+          response => {
+            this.farmland = response;
+            this.FarmlandSubscription.unsubscribe();
+          }
+        );
+
+        //fundo activo 
+        this.CostCenterListSubscription = this.costCenterService.getCostCenterList().subscribe(
+          response => {
+            this.costCenterList = response;
+            //console.log(this.costCenterList);
+            this.FarmlandListSubscription.unsubscribe();
+          }
+        );
       }
     );
 
-    //fundo activo 
-    this.CostCenterListSubscription = this.costCenterService.getCostCenterList().subscribe(
-      response => {
-        this.costCenterList = response;
-        //console.log(this.costCenterList);
-        this.FarmlandListSubscription.unsubscribe();
-      }
-    );
   }
 
 

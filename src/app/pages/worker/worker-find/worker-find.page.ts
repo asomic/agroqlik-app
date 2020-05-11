@@ -15,6 +15,7 @@ import { Worker } from '../../../models/worker.model';
 export class WorkerFindPage implements OnInit {
   WorkerListSubscription: Subscription;
   workerList: Worker[];
+  workerListFiltered: Worker[];
   constructor(
     private workerService: WorkerService,
   ) { }
@@ -26,9 +27,18 @@ export class WorkerFindPage implements OnInit {
     this.WorkerListSubscription = this.workerService.getWorkerList().subscribe(
       response => {
         this.workerList = response;
+        this.workerListFiltered = response;
         this.WorkerListSubscription.unsubscribe();
       }
     );
 
+  }
+
+  // onChange('') {
+  //   this.workerListFiltered = this.workerList.filter(item => item.searchable.includes(substring));
+  // }
+
+  onSearchChange(searchValue: string): void {  
+    this.workerListFiltered = this.workerList.filter(item => item.searchable.includes(searchValue.toLowerCase()));
   }
 }

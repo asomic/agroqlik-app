@@ -63,7 +63,13 @@ export class FarmlandService {
                     );
                     this._farmlandList.push(farmland);
                   });
-                  //storing
+                  //storingconsole.log(auth.farmland);
+                  console.log('famrland id');
+                  console.log(auth.farmland);
+                  if (auth.farmland == null) {
+                    console.log('entre');
+                    this.authservice.setFarm(this._farmlandList[0].id);
+                  }
                   this.storeFarmlandList(this._farmlandList);
                   return this._farmlandList;
                 }));

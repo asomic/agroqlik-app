@@ -2,7 +2,7 @@
   <ion-toolbar>
 
     <ion-buttons slot="start">
-      <ion-back-button text="Atrás"></ion-back-button>
+      <ion-back-button text="Atrás" defaultHref="dashboard"></ion-back-button>
     </ion-buttons>
 
     <ion-title>
@@ -17,41 +17,22 @@
 
   <form action="" class="search-worker-form">
     <img src="/assets/icon/search.svg">
-    <input class="worker-form-input" type="text" placeholder="Buscar por nombre o apellido">
+    <input class="worker-form-input" type="text" placeholder="Buscar por nombre o apellido" (input)="onSearchChange($event.target.value)">
   </form>
 
   <div class="workers-list">
     
-    <div class="item">
+    <div class="item" *ngFor="let worker of workerListFiltered">
       <div class="info">
         <div class="avatar"></div>
         <div class="text">
-          <h4>Guillermo Espinoza</h4>
-          <p>9.222.222-2</p>
+          <h4>{{worker.fullName}}</h4>
+          <p>{{worker.rut}}</p>
         </div>
       </div>
-      <button class="button-go" [routerLink]="['/worker-day/1']">Editar</button>
+      <button class="button-go" [routerLink]="['/worker-day/' + worker.id]">Editar</button>
     </div>    
-    <div class="item">
-      <div class="info">
-        <div class="avatar"></div>
-        <div class="text">
-          <h4>Alberto Perez</h4>
-          <p>9.222.222-2</p>
-        </div>
-      </div>
-      <button class="button-go">Editar</button>
-    </div>    
-    <div class="item">
-      <div class="info">
-        <div class="avatar"></div>
-        <div class="text">
-          <h4>Cristian Hernandez</h4>
-          <p>9.222.222-2</p>
-        </div>
-      </div>
-      <button class="button-go">Editar</button>
-    </div>
+ 
 
   </div>
 

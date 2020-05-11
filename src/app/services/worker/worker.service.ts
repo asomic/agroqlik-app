@@ -30,7 +30,7 @@ export class WorkerService {
         auth => {
           if (this.status) {
             console.log('conectado worker');
-            const url = auth.domain + '/workers/';
+            const url = auth.domain + '/workers?all=true';
             return this.http.get(
               url,
               auth.header
@@ -63,11 +63,35 @@ export class WorkerService {
     );
   }
 
+  getWorker(id: string) {
+    return this.authservice.auth.pipe(
+      switchMap(
+        auth => {
 
-    // Storage
-    private storeWorkerList(workerList: Worker[]) {
-      Plugins.Storage.set({ key: "workerList", value: JSON.stringify(workerList) });
-    }
+            const url = auth.domain + '/workers/' + id;
+            return this.http.get(
+              url,
+              auth.header
+              ).pipe(map( response => {
+                  const element = response['data'];
+                  const worker = new Worker(
+                    element.id,
+                    element.name,
+                    element.rut,
+                    element.searchable,
+                  );
+                  return worker;
+                }));
+
+        }
+      )
+    );
+  }
+
+  // Storage
+  private storeWorkerList(workerList: Worker[]) {
+    Plugins.Storage.set({ key: "workerList", value: JSON.stringify(workerList) });
+  }
 
 
 }
