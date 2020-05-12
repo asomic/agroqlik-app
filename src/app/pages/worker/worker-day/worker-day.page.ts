@@ -6,6 +6,7 @@ import { Router, ActivatedRoute} from '@angular/router';
 import { WorkerService } from '../../../services/worker/worker.service';
 // Models
 import { Worker } from '../../../models/worker.model';
+import { WorkerDay } from '../../../models/workerday.model';
 
 @Component({
   selector: 'app-worker-day',
@@ -14,8 +15,9 @@ import { Worker } from '../../../models/worker.model';
 })
 export class WorkerDayPage implements OnInit {
   workerSubscription: Subscription;
+  workerDaySubscription: Subscription;
   public worker: Worker = null;
-
+  public workerDay: WorkerDay = null;
   public activities = [
     {
       nombre: 'Poda',
@@ -70,6 +72,14 @@ export class WorkerDayPage implements OnInit {
         console.log(response);
         this.worker = response;
         this.workerSubscription.unsubscribe();
+      }
+    );
+
+    this.workerDaySubscription = this.workerService.getWorkerDay(id).subscribe(
+      response => {
+        console.log(response);
+        this.workerDay = response;
+        this.workerDaySubscription.unsubscribe();
       }
     );
 

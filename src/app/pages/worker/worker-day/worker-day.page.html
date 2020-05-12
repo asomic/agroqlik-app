@@ -32,22 +32,22 @@
     Nueva Labor
   </button>
 
-  <div class="activities">
+  <div class="activities" *ngIf="workerDay">
     
     <h3>Labores Asignadas</h3>
 
-    <div class="activity-item" *ngFor="let activity of activities; let i = index">
+    <div class="activity-item" *ngFor="let workerLabor of workerDay.labors">
 
       <!-- Excerpt -->
       <div class="excerpt">
         <div class="data">
-          <h3>{{activity.nombre}}</h3>
-          <p>{{activity.cuartel}}</p>
+          <h3>{{workerLabor.laborName}}</h3>
+          <p>{{workerLabor.costCenterName}}</p>
         </div>
         <div class="buttons">
-          <button class="button-edit" name="Editar" (click)="toggleCollapsible(i)">
-            <span class="edit" [class.hide-edit]="showEdit[i]">Editar</span>
-            <span class="close" [class.show-close]="showClose[i]">Cerrar</span>
+          <button class="button-edit" name="Editar" (click)="toggleCollapsible(workerLabor.id)">
+            <span class="edit" [class.hide-edit]="showEdit[workerLabor.id]">Editar</span>
+            <span class="close" [class.show-close]="showClose[workerLabor.id]">Cerrar</span>
           </button>
           <button class="button-delete">
             <img src="/assets/icon/delete.svg">
@@ -55,7 +55,7 @@
         </div>
       </div>
       <!-- Info -->
-      <form action="" class="collapsible" [class.visible]="showCollapsible[i]">
+      <form action="" class="collapsible" [class.visible]="showCollapsible[workerLabor.id]">
         <div class="labor">
           <div class="item">
             <h5>Cuartel</h5>
@@ -80,11 +80,11 @@
           </div>
           <div class="item">
             <h5>Cantidad de Labor</h5>
-            <input type="text">         
+            <input type="text" >         
           </div>
           <div class="item">
             <h5>Valor</h5>
-            <input type="number">         
+            <input type="number" value="{{workerLabor.value}}">         
           </div>
         </div>
         <div class="bonus">
@@ -92,7 +92,7 @@
             <h4>Bonos</h4>
             <ion-toggle></ion-toggle>
           </div>
-          <div class="a-bonus" *ngFor="let bono of activity.bonos">
+          <!-- <div class="a-bonus" *ngFor="let bono of activity.bonos">
             <div class="item">
               <h5>Tipo de Bono</h5>
               <select name="bonusExtra">
@@ -104,7 +104,7 @@
               <h5>Valor</h5>
               <input type="number" placeholder="Ingrese un Valor">
             </div>
-          </div>
+          </div> -->
         </div>
         <button class="button-go">Agregar otro Bono</button>
       </form>
@@ -114,12 +114,12 @@
 
 </ion-content>
 
-<ion-footer class="footer-worker-list">
+<ion-footer class="footer-worker-list" *ngIf="workerDay">
   <ion-toolbar>
     <div class="total-wrapper">
       <div class="total">
         <p>Total</p>
-        <h4>$00.000</h4>
+        <h4 >${{workerDay.amount}}</h4>
       </div>
       <button class="button-go">Guardar</button>
     </div>

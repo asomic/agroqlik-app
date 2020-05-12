@@ -9,6 +9,8 @@ import { Plugins } from '@capacitor/core';
 import { AuthService } from '../../services/auth/auth.service';
 // Models
 import { Worker } from '../../models/worker.model';
+import { WorkerDay } from '../../models/workerday.model';
+import { WorkerLabor } from '../../models/workerlabor.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +18,7 @@ import { Worker } from '../../models/worker.model';
 export class WorkerService {
   private _workerList: Worker[] = [];
   private _worker: Worker = null;
+  private _workerDay: WorkerDay = null;
   status: boolean = true;
 
   constructor(
@@ -81,6 +84,73 @@ export class WorkerService {
                     element.searchable,
                   );
                   return worker;
+                }));
+
+        }
+      )
+    );
+  }
+
+  getWorkerDay(id: string) {
+    return this.authservice.auth.pipe(
+      switchMap(
+        auth => {
+
+            const url = auth.domain + '/workers/' + id + '/today';
+            return this.http.get(
+              url,
+              auth.header
+              ).pipe(map( response => {
+                console.log(response['data']);
+                if (response['data']) {
+                  const element = response['data'];
+                  const workerDay = new WorkerDay(
+                    element.id,
+                    element.worker_id,
+                    element.farmland_id,
+                    element.amount,
+                    element.absence,
+                    element.date,
+                    null
+                  );
+                  let workerLaborList: WorkerLabor[] = [];
+
+                  element.labors.forEach(labor => {
+                    const workerLabor = new WorkerLabor(
+                      labor.id,
+                      labor.cost_center_id,
+                      labor.cost_center_name,
+                      labor.worker_id,
+                      labor.worker_day_id,
+                      labor.labor_id,
+                      labor.labor_name,
+                      labor.labor_type.id,
+                      labor.labor_type.name,
+                      labor.status,
+                      labor.quantity,
+                      labor.value,
+                      labor.total,
+                      labor.total_bonuses,
+                    );
+                    workerLaborList.push(workerLabor);
+                  });
+
+                  workerDay.labors = workerLaborList;
+                  console.log(workerDay);
+                  return workerDay;
+                } else {
+                  const workerDay = new WorkerDay(
+                    null,
+                    +id,
+                    +auth._farmland,
+                    '0',
+                    false,
+                    null,
+                    null
+                  );
+                  return workerDay;
+                }
+
                 }));
 
         }
