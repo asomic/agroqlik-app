@@ -38,6 +38,7 @@ export class DashboardPage implements OnInit {
   ) { }
   
   ngOnInit() {
+
   }
 
   ionViewWillEnter() {
@@ -55,11 +56,9 @@ export class DashboardPage implements OnInit {
           }
         );
 
-        //fundo activo 
-        this.CostCenterListSubscription = this.costCenterService.getCostCenterList().subscribe(
+        this.CostCenterListSubscription = this.costCenterService.fetchCostCenterList().subscribe(
           response => {
             this.costCenterList = response;
-            //console.log(this.costCenterList);
             this.FarmlandListSubscription.unsubscribe();
           }
         );

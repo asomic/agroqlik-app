@@ -11,6 +11,8 @@ import { AuthService } from '../../services/auth/auth.service';
 import { Worker } from '../../models/worker.model';
 import { WorkerDay } from '../../models/workerday.model';
 import { WorkerLabor } from '../../models/workerlabor.model';
+import { CostCenter } from 'src/app/models/costcenter.model';
+import { Labor, LaborType } from 'src/app/models/labor.model';
 
 @Injectable({
   providedIn: 'root'
@@ -118,19 +120,30 @@ export class WorkerService {
                   element.labors.forEach(labor => {
                     const workerLabor = new WorkerLabor(
                       labor.id,
-                      labor.cost_center_id,
-                      labor.cost_center_name,
                       labor.worker_id,
                       labor.worker_day_id,
-                      labor.labor_id,
-                      labor.labor_name,
-                      labor.labor_type.id,
-                      labor.labor_type.name,
                       labor.status,
+                      new CostCenter(labor.cost_center.id, labor.cost_center.name),
+                      new Labor(labor.labor.id, labor.labor.name),
+                      new LaborType(labor.labor_type.id, labor.labor_type.text),
                       labor.quantity,
                       labor.value,
                       labor.total,
                       labor.total_bonuses,
+                      // labor.id,
+                      // labor.cost_center_id,
+                      // labor.cost_center_name,
+                      // labor.worker_id,
+                      // labor.worker_day_id,
+                      // labor.labor_id,
+                      // labor.labor_name,
+                      // labor.labor_type.id,
+                      // labor.labor_type.name,
+                      // labor.status,
+                      // labor.quantity,
+                      // labor.value,
+                      // labor.total,
+                      // labor.total_bonuses,
                     );
                     workerLaborList.push(workerLabor);
                   });
@@ -153,6 +166,54 @@ export class WorkerService {
 
                 }));
 
+        }
+      )
+    );
+  }
+
+  updateLabor(workerLabor: WorkerLabor) {
+    return this.authservice.auth.pipe(
+      switchMap(
+        auth => {
+          const data = {
+            id: workerLabor.id,
+            cost_center: workerLabor.costCenter.id,
+            labor: workerLabor.labor.id,
+            labor_type: workerLabor.laborType.id,
+            quantity: workerLabor.quantity,
+            value: workerLabor.value,
+          };
+
+          const url = auth.domain + '/workers/' + workerLabor.workerId + '/workerlabors/' + workerLabor.id;
+          return this.http.post(
+            url,
+            data,
+            auth._header
+          );
+        }
+      )
+    );
+  }
+
+  createLabor(workerLabor: WorkerLabor) {
+    return this.authservice.auth.pipe(
+      switchMap(
+        auth => {
+          const data = {
+            worker: workerLabor.workerId,
+            cost_center: workerLabor.costCenter.id,
+            labor: workerLabor.labor.id,
+            labor_type: workerLabor.laborType.id,
+            quantity: workerLabor.quantity,
+            value: workerLabor.value,
+          };
+
+          const url = auth.domain + '/workers/' + workerLabor.workerId + '/workerlabors';
+          return this.http.post(
+            url,
+            data,
+            auth._header
+          );
         }
       )
     );

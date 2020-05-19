@@ -1,3 +1,4 @@
+
 // Angular
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders  } from '@angular/common/http';
@@ -16,7 +17,7 @@ import { CostCenter } from '../../models/costcenter.model';
 })
 
 export class CostCenterService {
-  private _costCenterList: CostCenter[] = [];
+  private _costCenterList = new BehaviorSubject<CostCenter[]>(null);
   private _costCenter: CostCenter = null;
   status: boolean = true;
   //constructor
@@ -25,8 +26,19 @@ export class CostCenterService {
     private http: HttpClient,
   ) { }
 
+  public get costCenterList() {
+    return this._costCenterList.asObservable().pipe(
+      map(costCenterList => {
+        if (costCenterList) {
+          return costCenterList;
+        } else {
+          return null;
+        }
+    }));
+  }
+
   // farmland list
-  getCostCenterList() {
+  fetchCostCenterList() {
     return this.authservice.auth.pipe(
       switchMap(
         auth => {
@@ -37,7 +49,7 @@ export class CostCenterService {
               url,
               auth.header
               ).pipe(map( response => {
-                  this._costCenterList = [];
+                  let costCenterList: CostCenter[] = [];
                   response['data'].forEach(element => {
                     const costcenter = new CostCenter(
                       element.id,
@@ -45,18 +57,19 @@ export class CostCenterService {
                       element.todaylabors,
                       element.todayworkerdays,
                     );
-                    this._costCenterList.push(costcenter);
+                    costCenterList.push(costcenter);
                   });
                   //storing
-                  this.storeCostCenterList(this._costCenterList);
-                  return this._costCenterList;
+                  this.storeCostCenterList(costCenterList);
+                  this._costCenterList.next(costCenterList);
+                  return costCenterList;
                 }));
           } else {
             return from(Plugins.Storage.get({ key: "costCenterList" })).pipe(map( storedCostCenter => {
               console.log(storedCostCenter.value);
               const costcenters = JSON.parse(storedCostCenter.value);
-              this._costCenterList = costcenters;
-              return this._costCenterList;
+              this._costCenterList.next(costcenters);
+              return costcenters;
             }));
           }
         }

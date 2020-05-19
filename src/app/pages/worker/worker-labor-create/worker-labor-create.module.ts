@@ -1,27 +1,22 @@
-// Angular
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
-// Ionic
+
 import { IonicModule } from '@ionic/angular';
 
-import { WorkerDayPageRoutingModule } from './worker-day-routing.module';
+import { WorkerLaborCreatePageRoutingModule } from './worker-labor-create-routing.module';
 
-import { WorkerDayPage } from './worker-day.page';
+import { WorkerLaborCreatePage } from './worker-labor-create.page';
 import { IonicSelectableModule } from 'ionic-selectable';
-
-
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ReactiveFormsModule,
-    WorkerDayPageRoutingModule,
+    WorkerLaborCreatePageRoutingModule,
     IonicSelectableModule
   ],
-  declarations: [WorkerDayPage]
+  declarations: [WorkerLaborCreatePage]
 })
-export class WorkerDayPageModule {}
+export class WorkerLaborCreatePageModule {}

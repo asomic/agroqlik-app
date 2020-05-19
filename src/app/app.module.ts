@@ -23,7 +23,8 @@ registerLocaleData(localeEs, 'es');
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(),
-    AppRoutingModule],
+    AppRoutingModule,
+  ],
   providers: [
     StatusBar,
     SplashScreen,

@@ -1,0 +1,145 @@
+<ion-header>
+  <ion-toolbar>
+
+    <ion-buttons slot="start">
+      <ion-back-button text="Atrás" defaultHref="dashboard"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>
+      Editar Labores
+    </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/worker-find']">
+        <ion-icon src="/assets/icon/search.svg"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="app" >
+
+  <div class="the-worker-header" *ngIf="worker" >
+    <div class="avatar"></div>
+    <div class="info">
+      <h2>{{worker.fullName}}</h2>
+      <p>{{worker.rut}}</p>
+    </div>
+  </div>
+
+  <button class="button-go button-the-worker">
+    Nueva Labor
+  </button>
+
+
+  <div class="activities" *ngIf="workerDay">
+    
+    <h3>Labores Asignadas</h3>
+
+    <div class="activity-item" *ngFor="let workerLabor of workerDay.labors">
+
+      <!-- Excerpt -->
+      <div class="excerpt">
+        <div class="data">
+          <h3>{{workerLabor.labor.name}}</h3>
+          <p>{{workerLabor.costCenter.name}}</p>
+        </div>
+        <div class="buttons">
+          <button class="button-edit" name="Editar" (click)="toggleCollapsible(workerLabor.id)">
+            <span class="edit" [class.hide-edit]="showEdit[workerLabor.id]">Editar</span>
+            <span class="close" [class.show-close]="showClose[workerLabor.id]">Cerrar</span>
+          </button>
+          <button class="button-delete">
+            <img src="/assets/icon/delete.svg">
+          </button>
+        </div>
+      </div>
+      <!-- Info -->
+      <form action="" #frm="ngForm" class="collapsible" [class.visible]="showCollapsible[workerLabor.id]" (ngSubmit)="updateWorkerLabor(frm.value)">
+        <div class="labor">
+          <div class="item">
+            <h5>Cuartel</h5>
+            <select name="cuartel" [(ngModel)]="workerLabor.costCenter">
+              <option *ngFor="let costCenter of costCenterList" [value]="costCenter.id">{{costCenter.name}}</option>
+            </select>
+          </div>
+          <div class="item">
+            <h5>Labor</h5>
+            <!-- <ion-item>
+              <ionic-selectable
+            
+              [(ngModel)]="laborList"
+              [items]="laborList"
+              itemValueField="id"
+              itemTextField="name"
+              [canSearch]="true"
+              >
+            </ionic-selectable>
+            </ion-item> -->
+
+          
+            <!-- <select name="labor">
+              <option value="laborPoda" selected>Poda</option>
+              <option value="laborOtra">Otra</option>
+            </select> -->
+            <!-- <ion-searchbar (ionChange)="laborFilterList($event)" ></ion-searchbar>
+            <ion-list *ngIf="isLaborLoaded">
+                <ion-item *ngFor="let labor of laborListFiltered">{{ labor.name }}</ion-item>
+            </ion-list> -->
+
+          </div>
+          <div class="item">
+            <h5>Tipo de Labor</h5>
+            <select name="laborTypeInput" [(ngModel)]="workerLabor.laborType">
+              <option *ngFor="let laborTypeItem of laborTypeList" [value]="laborTypeItem.id" [selected]="laborTypeItem.id == 1">{{laborTypeItem.name}}</option>
+              
+            </select>
+          </div>
+          <div class="item">
+            <h5>Cantidad de Labor</h5>
+            <input type="text" value="{{workerLabor.quantity}}">         
+          </div>
+          <div class="item">
+            <h5>Valor</h5>
+            <input type="number" value="{{workerLabor.value}}">         
+          </div>
+        </div>
+        <div class="bonus">
+          <div class="header">
+            <h4>Bonos</h4>
+            <ion-toggle></ion-toggle>
+          </div>
+          <!-- <div class="a-bonus" *ngFor="let bono of activity.bonos">
+            <div class="item">
+              <h5>Tipo de Bono</h5>
+              <select name="bonusExtra">
+                <option value="extra1">Bono 1</option>
+                <option value="extra2">Bono 2</option>
+              </select>
+            </div>
+            <div class="item">
+              <h5>Valor</h5>
+              <input type="number" placeholder="Ingrese un Valor">
+            </div>
+          </div> -->
+        </div>
+        <button class="button-go" >Guardar</button>
+      </form>
+
+    </div>
+  </div>
+
+</ion-content>
+
+<ion-footer class="footer-worker-list" *ngIf="isLaborLoaded">
+  <ion-toolbar>
+    <div class="total-wrapper">
+      <div class="total">
+        <p>Total</p>
+        <h4 >${{workerDay.amount}}</h4>
+      </div>
+      <button class="button-go">Guardar</button>
+    </div>
+  </ion-toolbar>
+</ion-footer>

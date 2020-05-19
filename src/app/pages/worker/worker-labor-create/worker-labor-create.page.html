@@ -1,0 +1,111 @@
+<ion-header>
+  <ion-toolbar>
+
+    <ion-buttons slot="start">
+      <ion-back-button text="Atrás" defaultHref="dashboard"></ion-back-button>
+    </ion-buttons>
+
+
+
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/worker-find']">
+        <ion-icon src="/assets/icon/search.svg"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="app">
+  <h3>
+    Nueva Labor
+  </h3>
+  <div class="activities" >
+  
+    <div class="activity-item" >
+      <form id="create" action="" #create="ngForm" class="collapsible" [class.visible]="true" (ngSubmit)="storeWorkerLabor(create.value)">
+        <div class="labor">
+          <div class="item">
+            <h5>Cuartel</h5>
+            <select name="costCenterInput" [(ngModel)]="selectedCostCenter" required>
+              <option *ngFor="let costCenter of costCenterList" [ngValue]="costCenter">{{costCenter.name}}</option>
+            </select>
+          </div>
+          <div class="item">
+            <h5>Labor</h5>
+            <ion-item>
+              <ionic-selectable
+              name="laborInput"
+              [(ngModel)]="selectedLabor"
+              [items]="laborList"
+              itemValueField="id"
+              itemTextField="name"
+              [canSearch]="true"
+              >
+            </ionic-selectable>
+            </ion-item>
+
+
+          </div>
+          <div class="item">
+            <h5>Tipo de Labor</h5>
+            <select name="laborTypeInput" [(ngModel)]="selectedLaborType" (change)="laborTypeChange()" required>
+              <option *ngFor="let laborTypeItem of laborTypeList" [ngValue]="laborTypeItem">{{laborTypeItem.name}}</option>
+            </select>
+          </div>
+            <!-- labor tipo jornada  -->
+            <div class="item" *ngIf="LaborTypeOption == 1">
+              <h5>Tipo jornada</h5>
+              <select name="quantityInput" [(ngModel)]="quantityInput" (change)="valueChange()">
+                <option value="1.0">Jornada Completa</option>
+                <option value="0.5">Media Jornada</option>
+              </select>
+            </div>
+            <div class="item" *ngIf="LaborTypeOption == 1">
+              <h5>Valor Jornada</h5>
+              <input type="number" name="valueInput" value="0" [(ngModel)]="valueInput" (change)="valueChange()">         
+            </div>
+            <!-- labor tipo trato  -->
+            <div class="item" *ngIf="LaborTypeOption == 2">
+              <h5>Cantidad de Labor</h5>
+              <input type="number" name="quantityInput" value="0" [(ngModel)]="quantityInput" (change)="valueChange()">         
+            </div>
+            <div class="item" *ngIf="LaborTypeOption == 2">
+              <h5>Valor</h5>
+              <input type="number" name="valueInput" value="0" [(ngModel)]="valueInput" (change)="valueChange()">         
+            </div>
+            <!-- labor tipo  hora extra  -->
+            <div class="item" *ngIf="LaborTypeOption == 3">
+              <h5>Cantidad de horas</h5>
+              <input type="number" name="quantityInput" value="0" [(ngModel)]="quantityInput" (change)="valueChange()">         
+            </div>
+            <div class="item" *ngIf="LaborTypeOption == 3">
+              <h5>Valor hora</h5>
+              <input type="number" name="valueInput" value="0" [(ngModel)]="valueInput" (change)="valueChange()">         
+            </div>
+        </div>
+        <div class="bonus">
+          <div class="header">
+            <h4>Bonos</h4>
+            <ion-toggle></ion-toggle>
+          </div>
+
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+</ion-content>
+
+<ion-footer class="footer-worker-list" >
+  <ion-toolbar>
+    <div class="total-wrapper">
+      <div class="total">
+        <p>Total</p>
+        <h4 >${{selectedLaborTotal}}</h4>
+      </div>
+      <button type="submit" form="create" class="button-go">Guardar</button>
+    </div>
+  </ion-toolbar>
+</ion-footer>

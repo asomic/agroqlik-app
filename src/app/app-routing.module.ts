@@ -25,6 +25,11 @@ const routes: Routes = [
     canLoad: [ AuthGuard ],
   },
   {
+    path: 'worker-day/:worker/addlabor',
+    loadChildren: () => import('./pages/worker/worker-labor-create/worker-labor-create.module').then( m => m.WorkerLaborCreatePageModule),
+    canLoad: [ AuthGuard ],
+  },
+  {
     path: 'worker-find',
     loadChildren: () => import('./pages/worker/worker-find/worker-find.module').then( m => m.WorkerFindPageModule),
     canLoad: [ AuthGuard ],
@@ -39,6 +44,16 @@ const routes: Routes = [
     loadChildren: () => import('./pages/cost-center/cost-center-show/cost-center-show.module').then( m => m.CostCenterShowPageModule),
     canLoad: [ AuthGuard ],
   },
+
+  // eliminar
+  // {
+  //   path: 'worker-labor-create',
+  //   loadChildren: () => import('./pages/worker/worker-labor-create/worker-labor-create.module').then( m => m.WorkerLaborCreatePageModule)
+  // },
+  // {
+  //   path: 'worker-labor-edit',
+  //   loadChildren: () => import('./pages/worker/worker-labor-edit/worker-labor-edit.module').then( m => m.WorkerLaborEditPageModule)
+  // },
 ];
 
 @NgModule({
