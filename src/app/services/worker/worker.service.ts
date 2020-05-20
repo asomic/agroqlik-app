@@ -206,6 +206,7 @@ export class WorkerService {
             labor_type: workerLabor.laborType.id,
             quantity: workerLabor.quantity,
             value: workerLabor.value,
+            farmland: auth._farmland
           };
 
           const url = auth.domain + '/workers/' + workerLabor.workerId + '/workerlabors';
@@ -218,7 +219,22 @@ export class WorkerService {
       )
     );
   }
-
+  deleteLabor(workerLabor: WorkerLabor) {
+    return this.authservice.auth.pipe(
+      switchMap(
+        auth => {
+          const data = {
+            method: 'delete',
+          };
+          const url = auth.domain + '/workers/' + workerLabor.workerId + '/workerlabors/' + workerLabor.id;
+          return this.http.delete(
+            url,
+            auth._header
+          );
+        }
+      )
+    );
+  }
   // Storage
   private storeWorkerList(workerList: Worker[]) {
     Plugins.Storage.set({ key: "workerList", value: JSON.stringify(workerList) });

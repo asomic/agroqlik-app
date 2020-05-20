@@ -2,7 +2,7 @@
   <ion-toolbar>
 
     <ion-buttons slot="start">
-      <ion-back-button text="Atrás"></ion-back-button>
+      <ion-back-button text="Atrás" defaultHref="dashboard"></ion-back-button>
     </ion-buttons>
 
     <ion-title>
@@ -20,11 +20,11 @@
 
 <ion-content class="app">
 
-  <div class="worker-list-header">
+  <div class="worker-list-header" *ngIf="farmland">
     <h1>
       Pasar lista<br>
       <span class="highlighted">23 de Marzo de 2020</span><br>
-      Fundo San Lorenzo
+      {{farmland.name}}
     </h1>
   </div>
 

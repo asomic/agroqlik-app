@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject, from , of } from 'rxjs';
 import { Router, ActivatedRoute} from '@angular/router';
+import { Location } from '@angular/common';
 
 // Ionic
 import { LoadingController } from '@ionic/angular';
@@ -51,6 +52,7 @@ export class WorkerLaborCreatePage implements OnInit {
     private costCenterService: CostCenterService,
     public loadingController: LoadingController,
     private workerService: WorkerService,
+    private location: Location,
 
     ) { }
 
@@ -83,7 +85,7 @@ export class WorkerLaborCreatePage implements OnInit {
     console.log(value);
     const id = this.activatedRoute.snapshot.paramMap.get('worker');
 
-    // this.uploadLoading();
+    this.uploadLoading();
     // console.log(value);
     const workerLabor = new WorkerLabor(
       null,
@@ -102,11 +104,12 @@ export class WorkerLaborCreatePage implements OnInit {
 
     this.workerService.createLabor(workerLabor).subscribe( response => {
       console.log(response);
-     // this.loading.dismiss();
+      this.loading.dismiss();
+      this.location.back();
     },
     error => {
       console.log(error);
-      //this.loading.dismiss();
+      this.loading.dismiss();
     });
 
   }

@@ -1,11 +1,11 @@
 <ion-header>
   <ion-toolbar>
 
-    <ion-buttons slot="start">
+    <!-- <ion-buttons slot="start">
       <ion-button (click)="openFarmlandSelect()">
         <ion-icon src="/assets/icon/locate.svg"></ion-icon>
       </ion-button>
-    </ion-buttons>
+    </ion-buttons> -->
 
     <ion-title>
       <img src="/assets/img/logo.png" alt="">
@@ -33,10 +33,15 @@
 
   <div class="welcome">
     <img src="/assets/img/leafs.png">
-    <h1>
+    <h1 text-center>
       <span>Buenos días</span>,<br>
       Este es el <span class="highlighted">resumen de ayer</span><br>
       {{this.farmland.name}}
+      <ion-buttons style="display: inherit;"> 
+        <ion-button (click)="openFarmlandSelect()">
+          <ion-icon src="/assets/icon/locate.svg"></ion-icon>
+        </ion-button>
+      </ion-buttons>
     </h1>
   </div>
 

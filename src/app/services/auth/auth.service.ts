@@ -14,6 +14,8 @@ import { Plugins } from '@capacitor/core';
 const { Storage } = Plugins;
 //models
 import { Auth } from '../../models/auth.model';
+// Services
+// import { FarmlandService } from '../farmland/farmland.service';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +30,8 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+
   ) { }
 
   //objeto auth 
@@ -235,7 +238,7 @@ export class AuthService {
       }
     }
 
-    setFarm(id: string) {
+    setFarm(id: number) {
       console.log(id);
       this._auth.value._farmland = id;
       this._auth.next(this._auth.value);

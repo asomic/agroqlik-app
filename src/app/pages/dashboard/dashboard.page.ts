@@ -59,7 +59,7 @@ export class DashboardPage implements OnInit {
         this.CostCenterListSubscription = this.costCenterService.fetchCostCenterList().subscribe(
           response => {
             this.costCenterList = response;
-            this.FarmlandListSubscription.unsubscribe();
+            this.CostCenterListSubscription.unsubscribe();
           }
         );
       }

@@ -1,3 +1,4 @@
+
 // angular
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders  } from '@angular/common/http';
@@ -19,10 +20,11 @@ import { Farmland } from '../../models/farmland.model';
 export class FarmlandService {
   private _farmlandList: Farmland[] = [];
   private _farmland: Farmland = null;
+  private _activeFarmland = new BehaviorSubject<Farmland>(null);
   listener: any;
   status: boolean;
   constructor(
-    private authservice: AuthService,
+    private authService: AuthService,
     private http: HttpClient,
   ) {
     Network.getStatus().then( response => {
@@ -31,6 +33,28 @@ export class FarmlandService {
     });
 
     this.startListenNetwork();
+
+
+  }
+  // public setFarmland(id:number ) {
+
+  // }
+
+  public  get activeFarmland() {
+    return this._activeFarmland.asObservable().pipe(
+      map(farmland => {
+        if (farmland) {
+          return farmland;
+        } else {
+          return null;
+          // return Plugins.Storage.get({ key: "farmland" }).then(result => {
+          //   farmland = JSON.parse(result.value);
+          //   console.log(farmland);
+          //   return farmland;
+          //});
+        }
+      })
+    );
   }
 
   startListenNetwork() {
@@ -42,7 +66,7 @@ export class FarmlandService {
   // Getters
   // farmland list
   getFarmlandList() {
-    return this.authservice.auth.pipe(
+    return this.authService.auth.pipe(
       switchMap(
         auth => {
           if (this.status) {
@@ -64,11 +88,16 @@ export class FarmlandService {
                     this._farmlandList.push(farmland);
                   });
                   //storingconsole.log(auth.farmland);
-                  console.log('famrland id');
                   console.log(auth.farmland);
                   if (auth.farmland == null) {
                     console.log('entre');
-                    this.authservice.setFarm(this._farmlandList[0].id);
+                    this.authService.setFarm(this._farmlandList[0].id);
+                    this._activeFarmland.next(this._farmlandList[0]);
+                  } else {
+                    const activefarmland: Farmland = this._farmlandList.find(
+                      farmland => {if (farmland.id == auth._farmland) {return true; }}
+                      )[0];
+                    this._activeFarmland.next(activefarmland);
                   }
                   this.storeFarmlandList(this._farmlandList);
                   return this._farmlandList;
@@ -88,7 +117,7 @@ export class FarmlandService {
   }
   // Active farmland
   getFarmland() {
-    return this.authservice.auth.pipe(
+    return this.authService.auth.pipe(
       switchMap(
         auth => {
           if (!auth.farmland) {
@@ -110,6 +139,7 @@ export class FarmlandService {
                     element.yesterdayAbsence,
                   );
                   //storing
+                  this._activeFarmland.next(farmland);
                   this.storeFarmland(farmland);
                   return farmland;
                 }));
@@ -124,14 +154,22 @@ export class FarmlandService {
     );
   }
 
-  getCostCenterList() {}
-
   // Storage
   private storeFarmlandList(farmlands: Farmland[]) {
     Plugins.Storage.set({ key: "farmlandList", value: JSON.stringify(farmlands) });
   }
   private storeFarmland(farmland: Farmland) {
     Plugins.Storage.set({ key: "farmland", value: JSON.stringify(farmland) });
+  }
+
+  public farmlandFromStorage() {
+    return from(Plugins.Storage.get({ key: "farmland" })).pipe(map( 
+      storedFarmland => {
+      const farmland = JSON.parse(storedFarmland.value);
+      this._activeFarmland.next(farmland);
+      return farmland;
+      }
+    ));
   }
 
 }

@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute} from '@angular/router';
 import { FormsModule , FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 // Ionic
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, AlertController  } from '@ionic/angular';
 // Services
 import { WorkerService } from '../../../services/worker/worker.service';
 import { CostCenterService } from '../../../services/Farmland/costcenter.service';
@@ -29,6 +29,7 @@ export class WorkerDayPage implements OnInit {
   workerDaySubscription: Subscription;
   costCenterListSubscription: Subscription;
   laborListSubscription: Subscription;
+  deleteWorkerLaborSubscription: Subscription;
 
   public myForm: FormGroup;
 
@@ -70,7 +71,8 @@ export class WorkerDayPage implements OnInit {
     private costCenterService: CostCenterService,
     private laborService: LaborService,
     private formBuilder: FormBuilder,
-    public loadingController: LoadingController
+    public loadingController: LoadingController,
+    public alertController: AlertController
   ) {}
   ngOnInit() {
     // this.myForm = this.formBuilder.group({
@@ -101,6 +103,9 @@ export class WorkerDayPage implements OnInit {
     });
     await this.loading.present();
   }
+
+  // Alert
+
 
   // Refresh
   
@@ -237,6 +242,7 @@ export class WorkerDayPage implements OnInit {
       this.showCollapsible[this.index] = false;
       this.showEdit[this.index] = !this.showEdit[this.index];
       this.showClose[this.index] = !this.showClose[this.index];
+      this.showFooter = false;
       this.loading.dismiss();
 
     },
@@ -244,6 +250,47 @@ export class WorkerDayPage implements OnInit {
       this.loading.dismiss();
     });
 
+  }
+
+
+  // deleteWorkerLabor(workerLabor: WorkerLabor) {
+  //   this.deleteWorkerLaborSubscription = this.workerService.deleteLabor(workerLabor).subscribe(response => {
+  //     console.log(response);
+  //     this.deleteWorkerLaborSubscription.unsubscribe();
+  //   });
+  // }
+
+  async deleteWorkerLabor(workerLabor: WorkerLabor, i: number) {
+    const alert = await this.alertController.create({
+      header: 'Eliminar!',
+      message: 'Esta seguro que desea eliminar la labor?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('canceled');
+          }
+        }, {
+          text: 'Eliminar',
+          handler: () => {
+            console.log('Confirm Okay');
+            this.deleteWorkerLaborSubscription = this.workerService.deleteLabor(workerLabor).subscribe(
+              response => {
+                this.workerlaborList = this.workerlaborList.filter(({ id }) => id !== workerLabor.id);
+                this.deleteWorkerLaborSubscription.unsubscribe();
+              }, error => {
+                console.log(error);
+                this.deleteWorkerLaborSubscription.unsubscribe();
+              }
+            );
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
   laborTypeChange() {

@@ -40,7 +40,7 @@
     
     <h3>Labores Asignadas</h3>
 
-    <div class="activity-item" *ngFor="let workerLabor of workerDay.labors; let i = index">
+    <div class="activity-item" *ngFor="let workerLabor of workerlaborList; let i = index">
           
       <!-- Excerpt -->
       <div class="excerpt">
@@ -53,7 +53,7 @@
             <span class="edit" [class.hide-edit]="showEdit[i]">Editar</span>
             <span class="close" [class.show-close]="showClose[i]">Cerrar</span>
           </button>
-          <button class="button-delete">
+          <button class="button-delete" (click)="deleteWorkerLabor(workerLabor, i)">
             <img src="/assets/icon/delete.svg">
           </button>
         </div>

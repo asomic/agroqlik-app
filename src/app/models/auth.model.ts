@@ -6,7 +6,7 @@ export class Auth {
         public _refreshToken: string,
         public _tokenExpirationDate: string,
         public _domain: string,
-        public _farmland: string,
+        public _farmland: number,
         public _header: any
     ) {}
 
