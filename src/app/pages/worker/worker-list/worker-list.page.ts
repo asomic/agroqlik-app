@@ -5,9 +5,12 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 // services
 import { FarmlandService } from '../../../services/farmland/farmland.service';
+import { WorkerService } from '../../../services/worker/worker.service';
+
 
 // models
 import { Farmland } from '../../../models/farmland.model';
+import { WorkerDay } from '../../../models/workerday.model';
 
 @Component({
   selector: 'app-worker-list',
@@ -16,31 +19,43 @@ import { Farmland } from '../../../models/farmland.model';
 })
 export class WorkerListPage implements OnInit {
   farmlandSubscription: Subscription;
-  farmland: Farmland ;
+  farmland: Farmland;
+  workerDay: WorkerDay;
+  workerDayList = [];
+
 
   constructor(
     private farmlandService: FarmlandService,
+    private workerService: WorkerService,
     private router: Router,
   ) { }
 
   ngOnInit() {
-
+    
   }
 
   ionViewWillEnter() {
+    this.workerService.fetchWorkerDayList().subscribe(workerDayList => {
+      this.workerDayList = workerDayList['data'];
+      console.log(this.workerDayList);
+    });
     this.farmlandSubscription = this.farmlandService.activeFarmland.subscribe(farmland => {
-      if( farmland ) {
+      if ( farmland ) {
         this.farmland = farmland;
+        // this.workerService.getWorkerDayList.subscribe(
+        //   costCenterList => {
+        //     this.costCenterList = costCenterList;
+        //   }
+        // );
       } else {
-        console.log('entre aui');
-        this.farmlandSubscription = this.farmlandService.farmlandFromStorage().subscribe( farmland => {
-          this.farmland = farmland;
-        });
+        this.router.navigateByUrl('/dashboard');
       }
+
+
     });
   }
 
-  ionViewWillLeave(){
+  ionViewWillLeave() {
     this.farmlandSubscription.unsubscribe();
   }
 

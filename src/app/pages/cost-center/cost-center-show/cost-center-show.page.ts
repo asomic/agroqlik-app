@@ -1,4 +1,15 @@
+//angular
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute} from '@angular/router';
+import { Subscription } from 'rxjs';
+
+
+// Service
+import { CostCenterService } from '../../../services/farmland/costcenter.service';
+// Models
+import { CostCenter } from '../../../models/costcenter.model';
+//import { WorkerDay } from '../../../models/workerday.model';
+
 
 @Component({
   selector: 'app-cost-center-show',
@@ -7,9 +18,35 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CostCenterShowPage implements OnInit {
 
-  constructor() { }
+  CostCenterSubscription: Subscription;
+  workerDaysSubscription: Subscription;
+  costCenter: CostCenter ;
+  workerDayList: any;
+
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private costCenterService: CostCenterService,
+  ) { }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter(){
+    let id = this.activatedRoute.snapshot.paramMap.get('costcenter');
+    console.log(id);
+    this.CostCenterSubscription = this.costCenterService.fetchCostCenter(id).subscribe(
+      costCenter => {
+        this.costCenter = costCenter;
+        this.CostCenterSubscription.unsubscribe();
+      }
+    );
+    this.workerDaysSubscription = this.costCenterService.fetchCostCenterWorkerDays(id).subscribe(
+      workerDays => {
+        console.log(workerDays);
+        this.workerDayList = workerDays['data'];
+        this.workerDaysSubscription.unsubscribe();
+      }
+    );
   }
 
 }

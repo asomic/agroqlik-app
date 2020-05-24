@@ -36,25 +36,28 @@
   </div>
 
   <div class="workers">
-    <div class="card worker-card no-clickeable">
+    <div class="card worker-card no-clickeable" *ngFor="let workerDay of workerDayList">
       <div class="card-header">
         <div class="worker-header">
-          <h3>Guillermo Espinosa</h3>
-          <p>18.222.222-2</p>
+          <h3>{{workerDay.worker_name}}</h3>
+          <p>{{workerDay.worker_rut_formated}}</p>
         </div>
         <div class="worker-att">
           <ion-toggle></ion-toggle>
         </div>
       </div>
       <div class="card-body">
-        <p><b>2 Actividades</b></p>
-        <p>Cuartel Furta / Poda <span>⭐</span></p>
-        <p>Cuartel Fruta 2 / Poda</p>
+        <p><b>{{workerDay.labors_count}} Actividades</b></p>
+        <p *ngFor="let workerLabor of workerDay.labors ">
+          {{workerLabor.cost_center_name}} / {{workerLabor.labor_name}}
+        </p>
+        <!-- <p>Cuartel Furta / Poda <span>⭐</span></p>
+        <p>Cuartel Fruta 2 / Poda</p> -->
       </div>
-      <button class="button-edit" [routerLink]="['/worker-day/1']">Editar</button>
+      <button class="button-edit" [routerLink]="['/worker-day',workerDay.worker_id]">Editar</button>
     </div>
 
-    <div class="card worker-card">
+    <!-- <div class="card worker-card no-clickeable">
       <div class="card-header">
         <div class="worker-header">
           <h3>Guillermo Espinosa</h3>
@@ -70,7 +73,7 @@
         <p>Cuartel Fruta 2 / Poda</p>
       </div>
       <button class="button-edit" [routerLink]="['/worker-day/1']">Editar</button>
-    </div>
+    </div> -->
   </div>
 
 </ion-content>

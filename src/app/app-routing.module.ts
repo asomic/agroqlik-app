@@ -40,7 +40,7 @@ const routes: Routes = [
     canLoad: [ AuthGuard ],
   },
   {
-    path: 'cost-center-show/:costCenter',
+    path: 'cost-center-show/:costcenter',
     loadChildren: () => import('./pages/cost-center/cost-center-show/cost-center-show.module').then( m => m.CostCenterShowPageModule),
     canLoad: [ AuthGuard ],
   },

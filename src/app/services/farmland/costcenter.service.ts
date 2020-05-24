@@ -11,6 +11,8 @@ import { Plugins } from '@capacitor/core';
 import { AuthService } from '../../services/auth/auth.service';
 // Models
 import { CostCenter } from '../../models/costcenter.model';
+import { WorkerDay } from '../../models/workerday.model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +21,8 @@ import { CostCenter } from '../../models/costcenter.model';
 export class CostCenterService {
   private _costCenterList = new BehaviorSubject<CostCenter[]>(null);
   private _costCenter: CostCenter = null;
+  private _workerDay: WorkerDay = null;
+
   status: boolean = true;
   //constructor
   constructor(
@@ -54,8 +58,12 @@ export class CostCenterService {
                     const costcenter = new CostCenter(
                       element.id,
                       element.name,
-                      element.todaylabors,
-                      element.todayworkerdays,
+                      element.description,
+                      element.variety_name,
+                      element.specie_name,
+                      element.today_labors,
+                      element.today_workerdays,
+                      element.today_total,
                     );
                     costCenterList.push(costcenter);
                   });
@@ -73,6 +81,56 @@ export class CostCenterService {
             }));
           }
         }
+      )
+    );
+  }
+
+  fetchCostCenter(id: string) {
+    return this.authservice.auth.pipe(
+      switchMap(
+        auth => {
+
+          const url = auth.domain + '/farmlands/' + auth.farmland + '/costcenters/' + id ;
+          return this.http.get(
+            url,
+            auth.header
+            ).pipe( map (
+              response => {
+                const costcenter = new CostCenter(
+                  response['data'].id,
+                  response['data'].name,
+                  response['data'].description,
+                  response['data'].variety_name,
+                  response['data'].specie_name,
+                  response['data'].today_labors,
+                  response['data'].today_workerdays,
+                  response['data'].today_total,
+                );
+
+                return costcenter;
+              }
+            ));
+        }
+      )
+    );
+  }
+
+  fetchCostCenterWorkerDays(id: string) {
+    return this.authservice.auth.pipe(
+      switchMap(
+        auth => {
+          console.log('fetch costcenter workerDays');
+          const url = auth.domain + '/farmlands/' + auth.farmland + '/costcenters/' + id + '/workerdays?all=true';
+          return this.http.get(
+            url,
+            auth.header
+            ).pipe( map (
+              response => {
+                return response;
+              }
+              )
+            );
+          }
       )
     );
   }

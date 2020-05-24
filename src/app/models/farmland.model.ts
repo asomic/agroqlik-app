@@ -3,9 +3,9 @@ export class Farmland {
     constructor(
         public id: number,
         public name: string,
-        public yesterdayTotal: number,
-        public yesterdayPresent: number,
-        public yesterdayAbsence: number,
+        public todayTotal: number,
+        public todayPresent: number,
+        public todayAbsence: number,
     ) {}
 
 

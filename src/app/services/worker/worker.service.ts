@@ -46,6 +46,7 @@ export class WorkerService {
                       element.id,
                       element.name,
                       element.rut,
+                      element.rut_formated,
                       element.searchable,
                     );
                     this._workerList.push(worker);
@@ -83,11 +84,30 @@ export class WorkerService {
                     element.id,
                     element.name,
                     element.rut,
+                    element.rut_formated,
                     element.searchable,
                   );
                   return worker;
                 }));
 
+        }
+      )
+    );
+  }
+
+  fetchWorkerDayList() {
+    return this.authservice.auth.pipe(
+      switchMap(
+        auth => {
+          const url = auth.domain + '/farmlands/' + auth._farmland + '/workerdays?all=true';
+          return this.http.get(url, auth.header ).pipe(map(
+            response => {
+              return response;
+            },
+            error => {
+              return error;
+            }
+          ));
         }
       )
     );

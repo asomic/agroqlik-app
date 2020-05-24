@@ -81,9 +81,9 @@ export class FarmlandService {
                     const farmland = new Farmland(
                       element.id,
                       element.name,
-                      element.yesterdayTotal,
-                      element.yesterdayPresent,
-                      element.yesterdayAbsence,
+                      element.todayTotal,
+                      element.todayPresent,
+                      element.todayAbsence,
                     );
                     this._farmlandList.push(farmland);
                   });
@@ -134,9 +134,9 @@ export class FarmlandService {
                   const farmland = new Farmland(
                     element.id,
                     element.name,
-                    element.yesterdayTotal,
-                    element.yesterdayPresent,
-                    element.yesterdayAbsence,
+                    element.todayTotal,
+                    element.todayPresent,
+                    element.todayAbsence,
                   );
                   //storing
                   this._activeFarmland.next(farmland);

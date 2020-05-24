@@ -20,9 +20,9 @@
 
 <ion-content class="app">
 
-  <div class="cost-center-header">
+  <div class="cost-center-header" *ngIf="costCenter">
     <h1>
-      Cuartel fruta
+      {{costCenter.name}}
     </h1>
     <div class="variety">
       <img src="/assets/img/leaf-icon.png">
@@ -38,63 +38,52 @@
     </div>
   </div>
 
-  <div class="cost-center-stats">
+  <div class="cost-center-stats" *ngIf="costCenter">
     <div class="total-workers">
       <div class="item">
-        <h2>81</h2>
+        <h2>{{costCenter.todayWorkerDays}}</h2>
         <p>Personas</p>
       </div>
     </div>
     <div class="total-amount">
       <div class="item">
-        <h2>$30.000</h2>
+        <h2>{{costCenter.todayTotal}}</h2>
         <p>Total</p>
       </div>
     </div>
   </div>
 
-  <div class="workers">
+  <div class="workers" *ngIf="costCenter">
     <h1>Trabajadores del Cuartel</h1>
 
-    <div class="card worker-card no-clickeable">
-      <div class="card-header">
-        <div class="worker-header">
-          <h3>Guillermo Espinosa</h3>
-          <p>18.222.222-2</p>
+      <div class="card worker-card no-clickeable" *ngFor="let workerDay of workerDayList">
+        <div class="card-header">
+          <div class="worker-header">
+            <h3>{{workerDay.worker_name}}</h3>
+            <p>{{workerDay.worker_rut_formated}}</p>
+          </div>
+          <div class="worker-att">
+            <ion-toggle></ion-toggle>
+          </div>
         </div>
-        <div class="worker-att">
-          <!-- Aqui va el switch -->
+        <div class="card-body">
+          <p><b>{{workerDay.labors_count}} Actividades</b></p>
+          <p *ngFor="let workerLabor of workerDay.labors ">
+            {{workerLabor.cost_center_name}} / {{workerLabor.labor_name}}
+          </p>
+          <!-- <p>Cuartel Furta / Poda <span>⭐</span></p>
+          <p>Cuartel Fruta 2 / Poda</p> -->
         </div>
+        <button class="button-edit" [routerLink]="['/worker-day',workerDay.worker_id]">Editar</button>
       </div>
-      <div class="card-body">
-        <p><b>2 Actividades</b></p>
-        <p>Cuartel Furta / Poda <span>⭐</span></p>
-        <p>Cuartel Fruta 2 / Poda</p>
-      </div>
-    </div>
 
-    <div class="card worker-card no-clickeable">
-      <div class="card-header">
-        <div class="worker-header">
-          <h3>Guillermo Espinosa</h3>
-          <p>18.222.222-2</p>
-        </div>
-        <div class="worker-att">
-          <!-- Aqui va el switch -->
-        </div>
-      </div>
-      <div class="card-body">
-        <p><b>2 Actividades</b></p>
-        <p>Cuartel Furta / Poda <span>⭐</span></p>
-        <p>Cuartel Fruta 2 / Poda</p>
-      </div>
-    </div>
+
   </div>
 
 </ion-content>
-
+<!-- 
 <ion-footer>
   <ion-toolbar>
     <button class="button-go" [routerLink]="['/worker-list']">Pasar Lista</button>
   </ion-toolbar>
-</ion-footer>
+</ion-footer> -->
