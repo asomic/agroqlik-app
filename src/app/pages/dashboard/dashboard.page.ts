@@ -28,6 +28,7 @@ export class DashboardPage implements OnInit {
   farmland: Farmland ;
   costCenterList: CostCenter[];
   costCenter: CostCenter ;
+  currentDate: Date;
   
   @ViewChild('myFarmlandSelect', { static: false }) selectRef: IonSelect;
 
@@ -42,6 +43,7 @@ export class DashboardPage implements OnInit {
   }
 
   ionViewWillEnter() {
+    this.currentDate = new Date();
     // lista de fundos
     this.FarmlandListSubscription = this.farmlandService.getFarmlandList().subscribe(
       response => {

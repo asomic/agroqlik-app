@@ -6,7 +6,7 @@ export class CostCenter {
         public description?: string,
         public varietyName?: string,
         public specieName?: string,
-        public todaylabors?: number,
+        public todayLabors?: number,
         public todayWorkerDays?: number,
         public todayTotal?: number,
     ) {}

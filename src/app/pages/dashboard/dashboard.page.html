@@ -41,7 +41,7 @@
     <h1 text-center>
       <span>Buenos días</span>,<br>
       Este es el <span class="highlighted">resumen de Hoy</span><br>
-      25-05-20<br>
+      {{currentDate | date:'dd-MM-yyyy' }}<br>
       {{this.farmland.name}}
       <ion-buttons style="display: inherit;"> 
         <ion-button (click)="openFarmlandSelect()">
@@ -82,7 +82,7 @@
           <p>Trabajadores</p>
         </div>
         <div class="stat-item">
-          <h2>{{costCenter.todaylabors}}</h2>
+          <h2>{{costCenter.todayLabors}}</h2>
           <p>Labores</p>
         </div>
       </div>
