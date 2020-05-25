@@ -29,21 +29,21 @@
   </div>
 
   <div class="order-by">
-    <select name="seleccionar-orden" id="">
-      <option value="a-z">Ordenar por Nombre (A - Z)</option>
-      <option value="z-a">Ordenar por Nombre - inverso (Z - A)</option>
+    <select name="seleccionar-orden" id="" (change)="sortBy($event.target.value)">
+      <option value="ASC">Ordenar por Nombre (A - Z)</option>
+      <option value="DESC">Ordenar por Nombre - inverso (Z - A)</option>
     </select>
   </div>
 
   <div class="workers">
-    <div class="card worker-card no-clickeable" *ngFor="let workerDay of workerDayList">
+    <div class="card worker-card no-clickeable" *ngFor="let workerDay of workerDayList ">
       <div class="card-header">
         <div class="worker-header">
           <h3>{{workerDay.worker_name}}</h3>
           <p>{{workerDay.worker_rut_formated}}</p>
         </div>
         <div class="worker-att">
-          <ion-toggle></ion-toggle>
+          <ion-toggle checked="{{!workerDay.absence}}" (ionChange)="absenceChange($event.detail.checked, workerDay.id)" ></ion-toggle>
         </div>
       </div>
       <div class="card-body">

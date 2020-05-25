@@ -53,7 +53,7 @@
     </div>
   </div>
 
-  <div class="workers" *ngIf="costCenter">
+  <div class="workers" *ngIf="workerDayList">
     <h1>Trabajadores del Cuartel</h1>
 
       <div class="card worker-card no-clickeable" *ngFor="let workerDay of workerDayList">
@@ -63,7 +63,7 @@
             <p>{{workerDay.worker_rut_formated}}</p>
           </div>
           <div class="worker-att">
-            <ion-toggle></ion-toggle>
+            <ion-toggle checked="{{!workerDay.absence}}" (ionChange)="absenceChange($event.detail.checked, workerDay.id)" ></ion-toggle>
           </div>
         </div>
         <div class="card-body">

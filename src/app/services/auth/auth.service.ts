@@ -7,8 +7,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 //ionic
 import { LoadingController } from '@ionic/angular';
 //rxjs
-import { BehaviorSubject, from } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { BehaviorSubject, from, observable, of } from 'rxjs';
+import { switchMap, map, tap } from 'rxjs/operators';
+
 //capacitor
 import { Plugins } from '@capacitor/core';
 const { Storage } = Plugins;
@@ -244,4 +245,25 @@ export class AuthService {
       this._auth.next(this._auth.value);
       this.storeUserData(this._auth.value);
     }
+
+    fetchUser(){
+      
+      return this.auth.pipe( switchMap (
+        auth => {
+          if (auth) {
+            const url = auth.domain + '/profile';
+            return this.http.get(url, auth.header ).pipe(map(
+              response => {
+                return response['data'];
+              }
+            ));
+          } else {
+            return of(null);
+          }
+
+        }
+      ));
+    }
+
+
 }
