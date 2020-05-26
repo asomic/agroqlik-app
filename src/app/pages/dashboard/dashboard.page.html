@@ -26,6 +26,9 @@
 </ion-header>
 
 <ion-content class="app" *ngIf="farmland">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
 
   <ion-item [hidden]='hideList'>
     <ion-label>Seleccionar un Fundo</ion-label>

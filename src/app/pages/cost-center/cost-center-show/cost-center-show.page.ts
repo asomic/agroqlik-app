@@ -34,6 +34,13 @@ export class CostCenterShowPage implements OnInit {
 
   ngOnInit() {
   }
+  
+  doRefresh(event) {
+    this.ionViewWillEnter();
+    setTimeout(() => {
+      event.target.complete();
+    }, 2000);
+  }
 
   ionViewWillEnter() {
     let id = this.activatedRoute.snapshot.paramMap.get('costcenter');

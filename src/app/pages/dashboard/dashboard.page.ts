@@ -38,8 +38,17 @@ export class DashboardPage implements OnInit {
     private costCenterService: CostCenterService,
   ) { }
   
+
+
   ngOnInit() {
 
+  }
+
+  doRefresh(event) {
+    this.ionViewWillEnter();
+    setTimeout(() => {
+      event.target.complete();
+    }, 2000);
   }
 
   ionViewWillEnter() {

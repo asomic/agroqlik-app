@@ -5,7 +5,7 @@ import { Router, ActivatedRoute} from '@angular/router';
 import { Location } from '@angular/common';
 
 // Ionic
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, ModalController, ToastController } from '@ionic/angular';
 // Service
 import { LaborService } from './../../../services/labor/labor.service';
 import { CostCenterService } from '../../../services/Farmland/costcenter.service';
@@ -18,6 +18,9 @@ import { WorkerDay } from '../../../models/workerday.model';
 import { WorkerLabor } from '../../../models/workerlabor.model';
 import { CostCenter } from '../../../models/costcenter.model';
 import { Labor, LaborType } from './../../../models/labor.model';
+
+// Modal
+import { LaborListPage } from '../../modal/labor-list/labor-list.page';
 
 @Component({
   selector: 'app-worker-labor-create',
@@ -33,6 +36,7 @@ export class WorkerLaborCreatePage implements OnInit {
     new LaborType(2, 'Trato'),
     new LaborType(3, 'Hora extra')
   ];
+  dataReturned: any;
   selectedLaborTotal = 0;
   LaborTypeOption = 0;
   loading: any;
@@ -53,6 +57,8 @@ export class WorkerLaborCreatePage implements OnInit {
     public loadingController: LoadingController,
     private workerService: WorkerService,
     private location: Location,
+    public modalController: ModalController,
+    public toastController: ToastController
 
     ) { }
 
@@ -71,6 +77,14 @@ export class WorkerLaborCreatePage implements OnInit {
     this.costCenterService.costCenterList.subscribe( costcenter =>{
       this.costCenterList = costcenter;
     });
+  }
+
+  // Toast
+  async presentToast(msg) {
+    const toast = await this.toastController.create({
+      message: msg,
+    });
+    toast.present();
   }
 
   laborTypeChange() {
@@ -102,16 +116,40 @@ export class WorkerLaborCreatePage implements OnInit {
     );
     console.log(workerLabor);
 
-    this.workerService.createLabor(workerLabor).subscribe( response => {
-      console.log(response);
-      this.loading.dismiss();
-      this.location.back();
-    },
-    error => {
-      console.log(error);
-      this.loading.dismiss();
+    this.workerService.createLabor(workerLabor).subscribe(
+      response => {
+
+        this.loading.dismiss();
+        this.presentToast('Labor asignada con éxito!');
+        this.location.back();
+      },
+      error => {
+        console.log(error);
+        console.log(error);
+        this.loading.dismiss();
+      }
+    );
+
+  }
+
+  async laborModal(labor: Labor) {
+    const modal = await this.modalController.create({
+      component: LaborListPage,
+      componentProps: {
+        "labor": labor,
+        "laborList": this.laborList
+      }
     });
 
+    modal.onDidDismiss().then((dataReturned ) => {
+      if (dataReturned !== null) {
+        console.log('cerre');
+        console.log(dataReturned);
+        this.selectedLabor = dataReturned.data;
+      }
+    });
+
+    return await modal.present();
   }
 
 }

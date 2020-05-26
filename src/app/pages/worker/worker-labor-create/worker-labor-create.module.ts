@@ -9,13 +9,16 @@ import { WorkerLaborCreatePageRoutingModule } from './worker-labor-create-routin
 import { WorkerLaborCreatePage } from './worker-labor-create.page';
 import { IonicSelectableModule } from 'ionic-selectable';
 
+import { LaborListPageModule } from '../../modal/labor-list/labor-list.module';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     WorkerLaborCreatePageRoutingModule,
-    IonicSelectableModule
+    IonicSelectableModule,
+    LaborListPageModule
   ],
   declarations: [WorkerLaborCreatePage]
 })

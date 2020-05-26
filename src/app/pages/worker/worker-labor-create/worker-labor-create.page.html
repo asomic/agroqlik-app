@@ -33,7 +33,11 @@
           </div>
           <div class="item">
             <h5>Labor</h5>
-            <ion-item>
+            <select name="laborInput" [(ngModel)]="selectedLabor" required (click)="laborModal(selectedLabor)" onmousedown="(function(e){ e.preventDefault(); })(event, this)">
+              <option *ngFor="let labor of laborList" [ngValue]="labor">{{labor.name}}</option>
+            </select>
+            <!-- <ion-item>
+              
               <ionic-selectable
               name="laborInput"
               [(ngModel)]="selectedLabor"
@@ -43,7 +47,7 @@
               [canSearch]="true"
               >
             </ionic-selectable>
-            </ion-item>
+            </ion-item> -->
 
 
           </div>

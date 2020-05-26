@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute} from '@angular/router';
 import { FormsModule , FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 // Ionic
-import { LoadingController, AlertController, ModalController } from '@ionic/angular';
+import { LoadingController, AlertController, ModalController, ToastController  } from '@ionic/angular';
 // Services
 import { WorkerService } from '../../../services/worker/worker.service';
 import { CostCenterService } from '../../../services/Farmland/costcenter.service';
@@ -76,13 +76,10 @@ export class WorkerDayPage implements OnInit {
     private formBuilder: FormBuilder,
     public loadingController: LoadingController,
     public alertController: AlertController,
-    public modalController: ModalController
+    public modalController: ModalController,
+    public toastController: ToastController
   ) {}
   ngOnInit() {
-    // this.myForm = this.formBuilder.group({
-    //   player1: ['', Validators.required]
-    // });
-
     this.laborListSubscription = this.laborService.fetchLaborList().subscribe(
       response => {
         this.laborList = response;
@@ -95,9 +92,14 @@ export class WorkerDayPage implements OnInit {
         this.costCenterListSubscription.unsubscribe();
       }
     );
-    // this.costCenterService.costCenterList.subscribe( costcenter =>{
-    //   this.costCenterList = costcenter;
-    // });
+  }
+
+  // Toast
+  async presentToast(msg) {
+    const toast = await this.toastController.create({
+      message: msg,
+    });
+    toast.present();
   }
 
   // loading
@@ -248,7 +250,7 @@ export class WorkerDayPage implements OnInit {
       this.showClose[this.index] = !this.showClose[this.index];
       this.showFooter = false;
       this.loading.dismiss();
-
+      this.presentToast('Labor editada con exito!');
     },
     error => {
       this.loading.dismiss();
@@ -284,6 +286,7 @@ export class WorkerDayPage implements OnInit {
               response => {
                 this.workerlaborList = this.workerlaborList.filter(({ id }) => id !== workerLabor.id);
                 this.deleteWorkerLaborSubscription.unsubscribe();
+                this.presentToast('Labor eliminada con exito!');
               }, error => {
                 console.log(error);
                 this.deleteWorkerLaborSubscription.unsubscribe();
