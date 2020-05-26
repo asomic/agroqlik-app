@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute} from '@angular/router';
 import { FormsModule , FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 // Ionic
-import { LoadingController, AlertController  } from '@ionic/angular';
+import { LoadingController, AlertController, ModalController } from '@ionic/angular';
 // Services
 import { WorkerService } from '../../../services/worker/worker.service';
 import { CostCenterService } from '../../../services/Farmland/costcenter.service';
@@ -18,6 +18,9 @@ import { WorkerDay } from '../../../models/workerday.model';
 import { WorkerLabor } from '../../../models/workerlabor.model';
 import { CostCenter } from '../../../models/costcenter.model';
 import { Labor, LaborType } from './../../../models/labor.model';
+
+// Modal
+import { LaborListPage } from '../../modal/labor-list/labor-list.page';
 
 @Component({
   selector: 'app-worker-day',
@@ -44,7 +47,7 @@ export class WorkerDayPage implements OnInit {
     new LaborType(2, 'Trato'),
     new LaborType(3, 'Hora extra')
   ];
-
+  dataReturned: any;
   showCollapsible: Array<boolean> = [];
   showEdit: Array<boolean> = [];
   showClose: Array<boolean> = [];
@@ -72,7 +75,8 @@ export class WorkerDayPage implements OnInit {
     private laborService: LaborService,
     private formBuilder: FormBuilder,
     public loadingController: LoadingController,
-    public alertController: AlertController
+    public alertController: AlertController,
+    public modalController: ModalController
   ) {}
   ngOnInit() {
     // this.myForm = this.formBuilder.group({
@@ -303,5 +307,27 @@ export class WorkerDayPage implements OnInit {
     this.selectedLaborTotal = this.quantityInput * this.valueInput;
   }
 
+  // laborModal(labor: Labor) {
+  //   console.log(labor);
+  // }
+  async laborModal(labor: Labor) {
+    const modal = await this.modalController.create({
+      component: LaborListPage,
+      componentProps: {
+        "labor": labor,
+        "laborList": this.laborList
+      }
+    });
+
+    modal.onDidDismiss().then((dataReturned ) => {
+      if (dataReturned !== null) {
+        console.log('cerre');
+        console.log(dataReturned);
+        this.selectedLabor = dataReturned.data;
+      }
+    });
+
+    return await modal.present();
+  }
 
 }

@@ -1,3 +1,4 @@
+
 // Angular
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -9,8 +10,8 @@ import { IonicModule } from '@ionic/angular';
 import { WorkerDayPageRoutingModule } from './worker-day-routing.module';
 
 import { WorkerDayPage } from './worker-day.page';
-import { IonicSelectableModule } from 'ionic-selectable';
 
+import { LaborListPageModule } from '../../modal/labor-list/labor-list.module';
 
 
 @NgModule({
@@ -20,8 +21,8 @@ import { IonicSelectableModule } from 'ionic-selectable';
     IonicModule,
     ReactiveFormsModule,
     WorkerDayPageRoutingModule,
-    IonicSelectableModule
+    LaborListPageModule
   ],
-  declarations: [WorkerDayPage]
+  declarations: [WorkerDayPage],
 })
 export class WorkerDayPageModule {}

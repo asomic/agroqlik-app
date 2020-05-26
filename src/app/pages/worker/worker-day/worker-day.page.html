@@ -70,7 +70,7 @@
           </div>
           <div class="item">
             <h5>Labor</h5>
-            <ion-item>
+            <!-- <ion-item>
               <ionic-selectable
               name="laborInput"
               [(ngModel)]="selectedLabor"
@@ -80,11 +80,10 @@
               [canSearch]="true"
               >
             </ionic-selectable>
-            </ion-item>
-            <!-- <select name="labor">
-              <option value="laborPoda" selected>Poda</option>
-              <option value="laborOtra">Otra</option>
-            </select> -->
+            </ion-item> -->
+            <select name="laborInput" [(ngModel)]="selectedLabor" required (click)="laborModal(selectedLabor)" onmousedown="(function(e){ e.preventDefault(); })(event, this)">
+              <option *ngFor="let labor of laborList" [ngValue]="labor">{{labor.name}}</option>
+            </select>
             <!-- <ion-searchbar (ionChange)="laborFilterList($event)" ></ion-searchbar>
             <ion-list *ngIf="isLaborLoaded">
                 <ion-item *ngFor="let labor of laborListFiltered">{{ labor.name }}</ion-item>

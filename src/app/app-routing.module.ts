@@ -44,16 +44,19 @@ const routes: Routes = [
     loadChildren: () => import('./pages/cost-center/cost-center-show/cost-center-show.module').then( m => m.CostCenterShowPageModule),
     canLoad: [ AuthGuard ],
   },
+  // {
+  //   path: 'labor-list',
+  //   loadChildren: () => import('./pages/labor/labor-list/labor-list.module').then( m => m.LaborListPageModule)
+  // },
+  {
+    path: 'labor-list',
+    loadChildren: () => import('./pages/modal/labor-list/labor-list.module').then( m => m.LaborListPageModule)
+  },
+  // {
+  //   path: 'labor-select',
+  //   loadChildren: () => import('./shared/labor-select/labor-select.module').then( m => m.LaborSelectPageModule)
+  // },
 
-  // eliminar
-  // {
-  //   path: 'worker-labor-create',
-  //   loadChildren: () => import('./pages/worker/worker-labor-create/worker-labor-create.module').then( m => m.WorkerLaborCreatePageModule)
-  // },
-  // {
-  //   path: 'worker-labor-edit',
-  //   loadChildren: () => import('./pages/worker/worker-labor-edit/worker-labor-edit.module').then( m => m.WorkerLaborEditPageModule)
-  // },
 ];
 
 @NgModule({

@@ -13,6 +13,8 @@ import { AppRoutingModule } from './app-routing.module';
 
 //auth 
 import { AuthInterceptor } from '../app/services/auth/auth.interceptor';
+
+
 import localeEs from '@angular/common/locales/es';
 registerLocaleData(localeEs, 'es');
 
