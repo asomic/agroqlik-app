@@ -8,11 +8,16 @@ import { AuthService } from '../../services/auth/auth.service';
 // Models
 import { Worker } from '../../models/worker.model';
 import { WorkerDay } from '../../models/workerday.model';
+import { WorkerLabor } from '../../models/workerlabor.model';
+import { CostCenter } from 'src/app/models/costcenter.model';
+import { Labor, LaborType } from 'src/app/models/labor.model';
+
 @Injectable({
   providedIn: 'root'
 })
 export class WorkerDayService {
-
+  private _workerDay: WorkerDay = null;
+  private _workerDayList: WorkerDay[] = [];
   constructor(
     private authservice: AuthService,
     private http: HttpClient,
@@ -25,10 +30,46 @@ export class WorkerDayService {
           const url = auth.domain + '/farmlands/' + auth._farmland + '/workerdays?all=true';
           return this.http.get(url, auth.header ).pipe(map(
             response => {
-              return response;
+              this._workerDayList = [];
+              response['data'].forEach(element => {
+                const workerDay = new WorkerDay(
+                  element.id,
+                  element.worker_id,
+                  element.worker_name,
+                  element.worker_rut_formated,
+                  element.farmland_id,
+                  element.amount,
+                  element.absence,
+                  element.date,
+                  null
+                );
+                let workerLaborList: WorkerLabor[] = [];
+
+                element.labors.forEach(labor => {
+                  const workerLabor = new WorkerLabor(
+                    labor.id,
+                    labor.worker_id,
+                    labor.worker_day_id,
+                    labor.status,
+                    new CostCenter(labor.cost_center.id, labor.cost_center.name),
+                    new Labor(labor.labor.id, labor.labor.name),
+                    new LaborType(labor.labor_type.id, labor.labor_type.text),
+                    labor.quantity,
+                    labor.value,
+                    labor.total,
+                    labor.total_bonuses,
+                  );
+                  workerLaborList.push(workerLabor);
+                });
+                workerDay.labors = workerLaborList;
+                this._workerDayList.push(workerDay);
+              });
+
+              return this._workerDayList;
             },
             error => {
-              return error;
+              console.log(error);
+              return this._workerDayList;
             }
           ));
         }
@@ -47,10 +88,46 @@ export class WorkerDayService {
             auth.header
             ).pipe( map (
               response => {
-                return response;
+                this._workerDayList = [];
+                response['data'].forEach(element => {
+                  const workerDay = new WorkerDay(
+                    element.id,
+                    element.worker_id,
+                    element.worker_name,
+                    element.worker_rut_formated,
+                    element.farmland_id,
+                    element.amount,
+                    element.absence,
+                    element.date,
+                    null
+                  );
+                  let workerLaborList: WorkerLabor[] = [];
+
+                  element.labors.forEach(labor => {
+                    const workerLabor = new WorkerLabor(
+                      labor.id,
+                      labor.worker_id,
+                      labor.worker_day_id,
+                      labor.status,
+                      new CostCenter(labor.cost_center.id, labor.cost_center.name),
+                      new Labor(labor.labor.id, labor.labor.name),
+                      new LaborType(labor.labor_type.id, labor.labor_type.text),
+                      labor.quantity,
+                      labor.value,
+                      labor.total,
+                      labor.total_bonuses,
+                    );
+                    workerLaborList.push(workerLabor);
+                  });
+                  workerDay.labors = workerLaborList;
+                  this._workerDayList.push(workerDay);
+                });
+
+                return this._workerDayList;
               },
               error => {
-                return error;
+                console.log(error);
+                return this._workerDayList;
               })
             );
           }
@@ -58,7 +135,75 @@ export class WorkerDayService {
     );
   }
 
-  abcenseChange(id: string, absence: boolean) {
+  getWorkerDay(id: string) {
+    return this.authservice.auth.pipe(
+      switchMap(
+        auth => {
+
+            const url = auth.domain + '/workers/' + id + '/today';
+            return this.http.get(
+              url,
+              auth.header
+              ).pipe(map( response => {
+                console.log(response['data']);
+                if (response['data']) {
+                  const element = response['data'];
+                  const workerDay = new WorkerDay(
+                    element.id,
+                    element.worker_id,
+                    element.worker_name,
+                    element.worker_rut_formated,
+                    element.farmland_id,
+                    element.amount,
+                    element.absence,
+                    element.date,
+                    null
+                  );
+                  let workerLaborList: WorkerLabor[] = [];
+
+                  element.labors.forEach(labor => {
+                    const workerLabor = new WorkerLabor(
+                      labor.id,
+                      labor.worker_id,
+                      labor.worker_day_id,
+                      labor.status,
+                      new CostCenter(labor.cost_center.id, labor.cost_center.name),
+                      new Labor(labor.labor.id, labor.labor.name),
+                      new LaborType(labor.labor_type.id, labor.labor_type.text),
+                      labor.quantity,
+                      labor.value,
+                      labor.total,
+                      labor.total_bonuses,
+                    );
+                    workerLaborList.push(workerLabor);
+                  });
+
+                  workerDay.labors = workerLaborList;
+                  console.log(workerDay);
+                  return workerDay;
+                } else {
+                  const workerDay = new WorkerDay(
+                    null,
+                    +id,
+                    null,
+                    null,
+                    +auth._farmland,
+                    '0',
+                    false,
+                    null,
+                    null
+                  );
+                  return workerDay;
+                }
+
+                }));
+
+        }
+      )
+    );
+  }
+
+  absenceChange(id: string, absence: boolean) {
     return this.authservice.auth.pipe(
       switchMap(
         auth => {

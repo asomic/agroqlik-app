@@ -150,20 +150,6 @@ export class WorkerService {
                       labor.value,
                       labor.total,
                       labor.total_bonuses,
-                      // labor.id,
-                      // labor.cost_center_id,
-                      // labor.cost_center_name,
-                      // labor.worker_id,
-                      // labor.worker_day_id,
-                      // labor.labor_id,
-                      // labor.labor_name,
-                      // labor.labor_type.id,
-                      // labor.labor_type.name,
-                      // labor.status,
-                      // labor.quantity,
-                      // labor.value,
-                      // labor.total,
-                      // labor.total_bonuses,
                     );
                     workerLaborList.push(workerLabor);
                   });

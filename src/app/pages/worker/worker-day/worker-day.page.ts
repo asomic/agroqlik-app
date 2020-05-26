@@ -8,6 +8,7 @@ import { FormsModule , FormGroup, FormBuilder, FormControl, Validators } from '@
 import { LoadingController, AlertController, ModalController, ToastController  } from '@ionic/angular';
 // Services
 import { WorkerService } from '../../../services/worker/worker.service';
+import { WorkerDayService } from '../../../services/worker/workerday.service';
 import { CostCenterService } from '../../../services/Farmland/costcenter.service';
 import { LaborService } from './../../../services/labor/labor.service';
 
@@ -71,6 +72,7 @@ export class WorkerDayPage implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private workerService: WorkerService,
+    private workerDayService: WorkerDayService,
     private costCenterService: CostCenterService,
     private laborService: LaborService,
     private formBuilder: FormBuilder,
@@ -98,9 +100,21 @@ export class WorkerDayPage implements OnInit {
   async presentToast(msg) {
     const toast = await this.toastController.create({
       message: msg,
+      duration: 5000,
+      buttons: [
+        {
+          text: 'Cerrar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
     });
     toast.present();
   }
+
+  
 
   // loading
   async  uploadLoading() {
@@ -137,29 +151,13 @@ export class WorkerDayPage implements OnInit {
       }
     );
 
-    this.workerDaySubscription = this.workerService.getWorkerDay(id).subscribe(
+    this.workerDaySubscription = this.workerDayService.getWorkerDay(id).subscribe(
       response => {
         this.workerDay = response;
         this.workerlaborList = response.labors;
-
-        console.log('listaaa ahora');
-        console.log(this.workerlaborList);
         this.workerDaySubscription.unsubscribe();
       }
     );
-
-
-    // this.laborListSubscription = this.laborService.fetchLaborList().subscribe(
-    //   response => {
-    //     this.laborList = response;
-    //     this.laborListSubscription.unsubscribe();
-    //   }
-    // );
-
-    // this.laborService.laborList.subscribe(result => {
-    //   this.laborList = result;
-    // });
-
 
   }
 
@@ -171,9 +169,7 @@ export class WorkerDayPage implements OnInit {
     if(this.showCollapsible[i] === true ){
       this.showCollapsible.forEach((element, index)  => {
         this.showCollapsible[index] = false;
-
       });
-
       this.showFooter = false;
     } else {
       this.showCollapsible.forEach((element, index)  => {
@@ -259,13 +255,6 @@ export class WorkerDayPage implements OnInit {
   }
 
 
-  // deleteWorkerLabor(workerLabor: WorkerLabor) {
-  //   this.deleteWorkerLaborSubscription = this.workerService.deleteLabor(workerLabor).subscribe(response => {
-  //     console.log(response);
-  //     this.deleteWorkerLaborSubscription.unsubscribe();
-  //   });
-  // }
-
   async deleteWorkerLabor(workerLabor: WorkerLabor, i: number) {
     const alert = await this.alertController.create({
       header: 'Eliminar!',
@@ -301,7 +290,6 @@ export class WorkerDayPage implements OnInit {
   }
 
   laborTypeChange() {
-
     console.log(this.selectedLaborType);
     this.LaborTypeOption = this.selectedLaborType.id;
   }
@@ -331,6 +319,25 @@ export class WorkerDayPage implements OnInit {
     });
 
     return await modal.present();
+  }
+  //  ausente
+  absenceChange( event, value, id ) {
+    console.log(event);
+    this.workerDayService.absenceChange(id, value).subscribe(
+      response => {
+        // console.log('evento');
+        // console.log(event);
+        // console.log('respuesta');
+        // console.log(response);
+        this.workerDay.absence = response['absence'];
+        if(response['absence']) {
+          this.presentToast('Trabajador ausente');
+        } else {
+          this.presentToast('Trabajador presente');
+        }
+        
+      }
+    );
   }
 
 }

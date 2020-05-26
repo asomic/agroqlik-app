@@ -83,6 +83,15 @@ export class WorkerLaborCreatePage implements OnInit {
   async presentToast(msg) {
     const toast = await this.toastController.create({
       message: msg,
+      buttons: [
+        {
+          text: 'Cerrar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
     });
     toast.present();
   }
@@ -124,7 +133,6 @@ export class WorkerLaborCreatePage implements OnInit {
         this.location.back();
       },
       error => {
-        console.log(error);
         console.log(error);
         this.loading.dismiss();
       }

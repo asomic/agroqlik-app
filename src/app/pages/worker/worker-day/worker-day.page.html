@@ -18,7 +18,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="app" >
+<ion-content class="app" *ngIf="workerDay">
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
@@ -29,9 +29,12 @@
       <h2>{{worker.fullName}}</h2>
       <p>{{worker.rut_formated}}</p>
     </div>
+    <div class="worker-att" >
+      <ion-toggle *ngIf="workerDay.id" checked="{{!workerDay.absence}}" (ionChange)="absenceChange($event,$event.detail.checked, workerDay.id)"></ion-toggle>
+    </div>
   </div>
 
-  <button class="button-go button-the-worker" [routerLink]="['/worker-day/'+worker.id+'/addlabor']" *ngIf="worker" >
+  <button *ngIf="!workerDay.absence" class="button-go button-the-worker" [routerLink]="['/worker-day/'+worker.id+'/addlabor']" >
     Nueva Labor
   </button>
 
@@ -48,8 +51,8 @@
           <h3>{{workerLabor.labor.name}}</h3>
           <p>{{workerLabor.costCenter.name}}</p>
         </div>
-        <div class="buttons">
-          <button class="button-edit" name="Editar" (click)="toggleCollapsible(i)">
+        <div class="buttons" *ngIf="!workerDay.absence">
+          <button   class="button-edit" name="Editar" (click)="toggleCollapsible(i)">
             <span class="edit" [class.hide-edit]="showEdit[i]">Editar</span>
             <span class="close" [class.show-close]="showClose[i]">Cerrar</span>
           </button>

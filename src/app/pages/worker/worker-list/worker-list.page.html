@@ -23,7 +23,7 @@
   <div class="worker-list-header" *ngIf="farmland">
     <h1>
       Pasar lista<br>
-      <span class="highlighted">23 de Marzo de 2020</span><br>
+      <span class="highlighted">{{currentDate | date:'dd-MM-yyyy' }}<br></span><br>
       {{farmland.name}}
     </h1>
   </div>
@@ -35,26 +35,26 @@
     </select>
   </div>
 
-  <div class="workers">
-    <div class="card worker-card no-clickeable" *ngFor="let workerDay of workerDayList ">
+  <div class="workers" *ngIf="workerDayList">
+    <div class="card worker-card no-clickeable" *ngFor="let workerDay of workerDayList ; let i = index">
       <div class="card-header">
         <div class="worker-header">
-          <h3>{{workerDay.worker_name}}</h3>
-          <p>{{workerDay.worker_rut_formated}}</p>
+          <h3>{{workerDay.workerName}}</h3>
+          <p>{{workerDay.workerRut}}</p>
         </div>
         <div class="worker-att">
-          <ion-toggle checked="{{!workerDay.absence}}" (ionChange)="absenceChange($event.detail.checked, workerDay.id)" ></ion-toggle>
+          <ion-toggle checked="{{!workerDay.absence}}" (ionChange)="absenceChange($event,$event.detail.checked, workerDay.id,i)" ></ion-toggle>
         </div>
       </div>
       <div class="card-body">
-        <p><b>{{workerDay.labors_count}} Actividades</b></p>
+        <p><b>{{workerDay.labors.length}} Actividades</b></p>
         <p *ngFor="let workerLabor of workerDay.labors ">
-          {{workerLabor.cost_center_name}} / {{workerLabor.labor_name}}
+          {{workerLabor.costCenter.name}} / {{workerLabor.labor.name}}
         </p>
         <!-- <p>Cuartel Furta / Poda <span>⭐</span></p>
         <p>Cuartel Fruta 2 / Poda</p> -->
       </div>
-      <button class="button-edit" [routerLink]="['/worker-day',workerDay.worker_id]">Editar</button>
+      <button *ngIf="!workerDay.absence" class="button-edit" [routerLink]="['/worker-day',workerDay.workerId]">Editar</button>
     </div>
 
     <!-- <div class="card worker-card no-clickeable">

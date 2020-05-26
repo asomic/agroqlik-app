@@ -3,6 +3,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+// Ionic
+import { ToastController  } from '@ionic/angular';
 // services
 import { FarmlandService } from '../../../services/farmland/farmland.service';
 import { WorkerService } from '../../../services/worker/worker.service';
@@ -23,7 +25,8 @@ export class WorkerListPage implements OnInit {
   farmlandSubscription: Subscription;
   farmland: Farmland;
   workerDay: WorkerDay;
-  workerDayList = [];
+  workerDayList: WorkerDay[] = [];
+  currentDate: Date;
 
 
   constructor(
@@ -31,18 +34,46 @@ export class WorkerListPage implements OnInit {
     private workerService: WorkerService,
     private router: Router,
     private workerDayService: WorkerDayService,
+    public toastController: ToastController
+
   ) { }
 
   ngOnInit() {
     
   }
+  doRefresh(event) {
+    this.ionViewWillEnter();
+    setTimeout(() => {
+      event.target.complete();
+    }, 2000);
+  }
+
+  // Toast
+  async presentToast(msg) {
+    const toast = await this.toastController.create({
+      message: msg,
+      duration: 5000,
+      buttons: [
+        {
+          text: 'Cerrar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    toast.present();
+  }
 
   ionViewWillEnter() {
-    this.workerService.fetchWorkerDayList().subscribe(workerDayList => {
-      this.workerDayList = workerDayList['data'];
-      this.sortBy('ASC');
-      console.log(this.workerDayList);
-    });
+    this.workerDayService.fetchFarmlandWorkerDays().subscribe(
+      workerDayList => {
+        this.workerDayList = workerDayList;
+        this.sortBy('ASC');
+        console.log(this.workerDayList);
+      }
+    );
     this.farmlandSubscription = this.farmlandService.activeFarmland.subscribe(farmland => {
       if ( farmland ) {
         this.farmland = farmland;
@@ -59,10 +90,16 @@ export class WorkerListPage implements OnInit {
     });
   }
 
-  absenceChange( event, id ) {
-    this.workerDayService.abcenseChange(id, event).subscribe(
+  absenceChange( event, value, id, index ) {
+    console.log(event);
+    this.workerDayService.absenceChange(id, value).subscribe(
       response => {
-        console.log(response);
+        this.workerDayList[index].absence = response['absence'];
+        if(response['absence']) {
+          this.presentToast('Trabajador cambiado a ausente');
+        } else {
+          this.presentToast('Trabajador cambiado a presente');
+        }
       }
     );
   }
@@ -74,10 +111,10 @@ export class WorkerListPage implements OnInit {
   sortBy(sort: string) {
     if(sort == 'ASC') {
       this.workerDayList.sort((a, b) => {
-        if (a.worker_name < b.worker_name)  {
+        if (a.workerName < b.workerName)  {
           return -1;
         }
-        if (a.worker_name > b.worker_name) {
+        if (a.workerName > b.workerName) {
           return 1;
         }
         // a debe ser igual b
@@ -85,10 +122,10 @@ export class WorkerListPage implements OnInit {
       });
     } else {
       this.workerDayList.sort((a, b) => {
-        if (a.worker_name < b.worker_name)  {
+        if (a.workerName < b.workerName)  {
           return 1;
         }
-        if (a.worker_name > b.worker_name) {
+        if (a.workerName > b.workerName) {
           return -1;
         }
         // a debe ser igual b
