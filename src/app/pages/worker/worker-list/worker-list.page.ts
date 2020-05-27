@@ -1,4 +1,3 @@
-
 // Angular
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -9,8 +8,6 @@ import { ToastController  } from '@ionic/angular';
 import { FarmlandService } from '../../../services/farmland/farmland.service';
 import { WorkerService } from '../../../services/worker/worker.service';
 import { WorkerDayService } from '../../../services/worker/workerday.service';
-
-
 
 // models
 import { Farmland } from '../../../models/farmland.model';
@@ -28,14 +25,12 @@ export class WorkerListPage implements OnInit {
   workerDayList: WorkerDay[] = [];
   currentDate: Date;
 
-
   constructor(
     private farmlandService: FarmlandService,
     private workerService: WorkerService,
     private router: Router,
     private workerDayService: WorkerDayService,
     public toastController: ToastController
-
   ) { }
 
   ngOnInit() {
@@ -67,6 +62,8 @@ export class WorkerListPage implements OnInit {
   }
 
   ionViewWillEnter() {
+    this.currentDate = new Date();
+
     this.workerDayService.fetchFarmlandWorkerDays().subscribe(
       workerDayList => {
         this.workerDayList = workerDayList;

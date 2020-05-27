@@ -29,6 +29,9 @@ export class DashboardPage implements OnInit {
   costCenterList: CostCenter[];
   costCenter: CostCenter ;
   currentDate: Date;
+
+  hours = new Date().getHours();
+  dayTime = "";
   
   @ViewChild('myFarmlandSelect', { static: false }) selectRef: IonSelect;
 
@@ -36,7 +39,15 @@ export class DashboardPage implements OnInit {
     private authService: AuthService,
     private farmlandService: FarmlandService,
     private costCenterService: CostCenterService,
-  ) { }
+  ) {
+    if (this.hours >= 5 && this.hours < 12) {
+      this.dayTime = "Buenos días";
+    } else if (this.hours >= 12 && this.hours < 21) {
+      this.dayTime = "Buenas Tardes";
+    } else {
+      this.dayTime = "Buenas Noches"
+    }
+  }
   
 
 

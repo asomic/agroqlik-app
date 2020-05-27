@@ -23,7 +23,9 @@
   <div class="worker-list-header" *ngIf="farmland">
     <h1>
       Pasar lista<br>
-      <span class="highlighted">{{currentDate | date:'dd-MM-yyyy' }}<br></span><br>
+      <span class="highlighted">
+        {{currentDate | date:'d' }} de <span style="text-transform: capitalize">{{currentDate | date:'MMMM'}}</span> del {{currentDate | date:'yyyy'}}
+      </span><br>
       {{farmland.name}}
     </h1>
   </div>

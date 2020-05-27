@@ -212,6 +212,13 @@ ion-content.app {
   --padding-start: 20px;
 }
 
+ion-content.menu {
+  --padding-top: 20px;
+  --padding-end: 20px;
+  --padding-bottom: 36px;
+  --padding-start: 20px;
+}
+
 ion-toolbar {
   --background: var(--ultra-light-green);
   --padding-top: 8px;
@@ -234,6 +241,10 @@ ion-icon {
 }
 
 ion-back-button {
+  --color: var(--black) !important;
+}
+
+ion-menu-button {
   --color: var(--black) !important;
 }
 
@@ -418,7 +429,7 @@ ion-footer {
     width: 100%;
     font-size: 20px;
     font-weight: 700;
-    line-height: 120%;
+    line-height: 125%;
     text-align: center;
   }
 }
@@ -740,37 +751,48 @@ form.search-worker-form {
     background-image: url('../assets/icon/arrow-down.svg');
     background-position: right .7em top 50%, 0 0;
     background-size: .65em auto, 100%;
+    -webkit-appearance: none;
+    appearance: none;
   }
 }
 
 // WORKER DAY
 .the-worker-header {
   display: flex;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
+  flex-wrap: wrap;
+  // flex-wrap: nowrap;
+  // justify-content: flex-start;
   align-items: center;
+  justify-content: center;
   width: 100%;
   margin-bottom: 24px;
   .avatar {
-    width: 57px;
-    height: 57px;
+    width: 100px;
+    height: 100px;
     border-radius: 57px;
-    margin-right: 16px;
+    // margin-right: 16px;
+    margin-bottom: 16px;
     background-color: var(--light-blue);
   }
-  .info {
-    h2 {
-      font-size: 22px;
-      line-height: 115%;
-      font-weight: 700;
-      margin: 0;
-      color: var(--black);
-    }
-    p {
-      margin: 0;
-      color: var(--black);
-      font-size: 14px;
-      line-height: 130%;
+  .info-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    .info {
+      h2 {
+        font-size: 22px;
+        line-height: 115%;
+        font-weight: 700;
+        margin: 0;
+        color: var(--black);
+      }
+      p {
+        margin: 0;
+        color: var(--black);
+        font-size: 14px;
+        line-height: 130%;
+      }
     }
   }
 }
@@ -783,6 +805,10 @@ form.search-worker-form {
 .activities {
   padding-top: 23px;
   border-top: solid 1px var(--ultra-light-blue);
+  &.no-padding {
+    padding-top: 0;
+    border-top: solid 1px transparent;
+  }
   h3 {
     margin: 0;
     font-size: 20px;
@@ -814,6 +840,7 @@ form.search-worker-form {
           font-weight: 700;
           font-size: 18px;
           color: var(--black);
+          text-transform: capitalize;
         }
         p {
           margin: 0;
@@ -825,6 +852,7 @@ form.search-worker-form {
         display: flex;
         justify-content: flex-end;
         align-items: center;
+        min-width: 48%;
         .button-edit {
           .edit {
             display: block;
@@ -890,6 +918,7 @@ form.search-worker-form {
             background-image: url('../assets/icon/arrow-down.svg');
             background-position: right .7em top 50%, 0 0;
             background-size: .65em auto, 100%;
+            text-transform: capitalize;
             option {}
           }
           input {

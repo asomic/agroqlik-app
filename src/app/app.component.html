@@ -5,12 +5,13 @@
         <ion-title>Menu</ion-title>
       </ion-toolbar>
     </ion-header>
-    <ion-content *ngIf="user">
-      <p>{{user.full_name}}</p>
-      <p>{{user.email}}</p>
-    
-    <button class="button-go" (click)="logout()">logout</button>
-
+    <ion-content *ngIf="user" class="menu">
+      <p>
+        <b>{{user.full_name}}</b>
+        <br/>
+        {{user.email}}
+      </p>
+      <button class="button-go" (click)="logout()">Logout</button>
     </ion-content>
   </ion-menu>
   <ion-router-outlet  id="menuContent"></ion-router-outlet>

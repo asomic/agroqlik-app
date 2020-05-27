@@ -8,7 +8,7 @@ import { Location } from '@angular/common';
 import { LoadingController, ModalController, ToastController } from '@ionic/angular';
 // Service
 import { LaborService } from './../../../services/labor/labor.service';
-import { CostCenterService } from '../../../services/Farmland/costcenter.service';
+import { CostCenterService } from '../../../services/farmland/costcenter.service';
 import { WorkerService } from '../../../services/worker/worker.service';
 
 // Models

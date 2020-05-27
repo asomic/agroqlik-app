@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders  } from '@angular/common/http';
 import { switchMap } from 'rxjs/operators';
 import { BehaviorSubject, from } from 'rxjs';
-import { map, tap , take} from 'rxjs/operators';
+import { map, tap, take} from 'rxjs/operators';
 // Capacitor
 import { Plugins } from '@capacitor/core';
 // Services

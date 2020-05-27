@@ -5,7 +5,9 @@
       <ion-back-button text="Atrás" defaultHref="dashboard"></ion-back-button>
     </ion-buttons>
 
-
+    <ion-title>
+      Asignar Nueva Labor
+    </ion-title>
 
     <ion-buttons slot="end">
       <ion-button [routerLink]="['/worker-find']">
@@ -17,10 +19,7 @@
 </ion-header>
 
 <ion-content class="app">
-  <h3>
-    Nueva Labor
-  </h3>
-  <div class="activities" >
+  <div class="activities no-padding">
   
     <div class="activity-item" >
       <form id="create" action="" #create="ngForm" class="collapsible" [class.visible]="true" (ngSubmit)="storeWorkerLabor(create.value)">
