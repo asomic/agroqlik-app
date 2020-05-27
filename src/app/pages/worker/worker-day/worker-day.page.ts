@@ -9,11 +9,11 @@ import { LoadingController, AlertController, ModalController, ToastController  }
 // Services
 import { WorkerService } from '../../../services/worker/worker.service';
 import { WorkerDayService } from '../../../services/worker/workerday.service';
+import { WorkerLaborService } from '../../../services/worker/workerlabor.service';
 import { CostCenterService } from '../../../services/Farmland/costcenter.service';
 import { LaborService } from './../../../services/labor/labor.service';
 
 // Models
-import { Farmland } from './../../../models/farmland.model';
 import { Worker } from '../../../models/worker.model';
 import { WorkerDay } from '../../../models/workerday.model';
 import { WorkerLabor } from '../../../models/workerlabor.model';
@@ -73,6 +73,7 @@ export class WorkerDayPage implements OnInit {
     private activatedRoute: ActivatedRoute,
     private workerService: WorkerService,
     private workerDayService: WorkerDayService,
+    private workerLaborService: WorkerLaborService,
     private costCenterService: CostCenterService,
     private laborService: LaborService,
     private formBuilder: FormBuilder,
@@ -239,7 +240,7 @@ export class WorkerDayPage implements OnInit {
     workerLabor.quantity = value.quantityInput;
     workerLabor.total = value.valueInput*value.quantityInput;
     console.log(workerLabor);
-    this.workerService.updateLabor(workerLabor).subscribe( response => {
+    this.workerLaborService.updateLabor(workerLabor).subscribe( response => {
       console.log(response);
       this.showCollapsible[this.index] = false;
       this.showEdit[this.index] = !this.showEdit[this.index];
@@ -271,7 +272,7 @@ export class WorkerDayPage implements OnInit {
           text: 'Eliminar',
           handler: () => {
             console.log('Confirm Okay');
-            this.deleteWorkerLaborSubscription = this.workerService.deleteLabor(workerLabor).subscribe(
+            this.deleteWorkerLaborSubscription = this.workerLaborService.deleteLabor(workerLabor).subscribe(
               response => {
                 this.workerlaborList = this.workerlaborList.filter(({ id }) => id !== workerLabor.id);
                 this.deleteWorkerLaborSubscription.unsubscribe();
