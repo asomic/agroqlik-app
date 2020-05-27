@@ -1,4 +1,3 @@
-
 // Angular
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders  } from '@angular/common/http';
@@ -26,7 +25,7 @@ export class CostCenterService {
   status: boolean = true;
   //constructor
   constructor(
-    private authservice: AuthService,
+    private authService: AuthService,
     private http: HttpClient,
   ) { }
 
@@ -43,7 +42,7 @@ export class CostCenterService {
 
   // farmland list
   fetchCostCenterList() {
-    return this.authservice.auth.pipe(
+    return this.authService.auth.pipe(
       switchMap(
         auth => {
           if (this.status) {
@@ -86,7 +85,7 @@ export class CostCenterService {
   }
 
   fetchCostCenter(id: string) {
-    return this.authservice.auth.pipe(
+    return this.authService.auth.pipe(
       switchMap(
         auth => {
 
@@ -111,26 +110,6 @@ export class CostCenterService {
               }
             ));
         }
-      )
-    );
-  }
-
-  fetchCostCenterWorkerDays(id: string) {
-    return this.authservice.auth.pipe(
-      switchMap(
-        auth => {
-          console.log('fetch costcenter workerDays');
-          const url = auth.domain + '/farmlands/' + auth.farmland + '/costcenters/' + id + '/workerdays?all=true';
-          return this.http.get(
-            url,
-            auth.header
-            ).pipe( map (
-              response => {
-                return response;
-              }
-              )
-            );
-          }
       )
     );
   }

@@ -10,7 +10,7 @@ import { LoadingController, AlertController, ModalController, ToastController  }
 import { WorkerService } from '../../../services/worker/worker.service';
 import { WorkerDayService } from '../../../services/worker/workerday.service';
 import { WorkerLaborService } from '../../../services/worker/workerlabor.service';
-import { CostCenterService } from '../../../services/Farmland/costcenter.service';
+import { CostCenterService } from '../../../services/farmland/costcenter.service';
 import { LaborService } from './../../../services/labor/labor.service';
 
 // Models

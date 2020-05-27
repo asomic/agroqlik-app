@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CostcenterService } from './costcenter.service';
+import { CostCenterService } from './costcenter.service';
 
-describe('CostcenterService', () => {
+describe('CostCenterService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: CostcenterService = TestBed.get(CostcenterService);
+    const service: CostCenterService = TestBed.get(CostCenterService);
     expect(service).toBeTruthy();
   });
 });
