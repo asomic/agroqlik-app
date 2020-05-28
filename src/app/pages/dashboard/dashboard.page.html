@@ -1,13 +1,6 @@
-
-
 <ion-header>
   <ion-toolbar>
 
-    <!-- <ion-buttons slot="start">
-      <ion-button (click)="openFarmlandSelect()">
-        <ion-icon src="/assets/icon/locate.svg"></ion-icon>
-      </ion-button>
-    </ion-buttons> -->
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
@@ -43,14 +36,9 @@
     <img src="/assets/img/leafs.png">
     <h1 text-center>
       <span>{{dayTime}}</span>,<br>
-      Este es el <span class="highlighted">resumen de Hoy</span><br>
+      Este es el <span class="highlighted">Resumen de Hoy</span><br>
       {{currentDate | date:'d' }} de <span style="text-transform: capitalize">{{currentDate | date:'MMMM'}}</span> del {{currentDate | date:'yyyy'}}<br>
       <span (click)="openFarmlandSelect()">{{this.farmland.name}} <ion-icon style="font-size: 12px;" src="/assets/icon/arrow-down.svg"></ion-icon></span>
-      <!-- <ion-buttons style="display: inherit;"> 
-        <ion-button (click)="openFarmlandSelect()">
-          <ion-icon src="/assets/icon/locate.svg"></ion-icon>
-        </ion-button>
-      </ion-buttons> -->
     </h1>
   </div>
 

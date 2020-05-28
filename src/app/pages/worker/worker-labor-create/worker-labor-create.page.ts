@@ -10,11 +10,10 @@ import { LoadingController, ModalController, ToastController } from '@ionic/angu
 import { LaborService } from './../../../services/labor/labor.service';
 import { CostCenterService } from '../../../services/farmland/costcenter.service';
 import { WorkerService } from '../../../services/worker/worker.service';
+import { WorkerLaborService } from '../../../services/worker/workerlabor.service';
+
 
 // Models
-import { Farmland } from './../../../models/farmland.model';
-import { Worker } from '../../../models/worker.model';
-import { WorkerDay } from '../../../models/workerday.model';
 import { WorkerLabor } from '../../../models/workerlabor.model';
 import { CostCenter } from '../../../models/costcenter.model';
 import { Labor, LaborType } from './../../../models/labor.model';
@@ -55,7 +54,7 @@ export class WorkerLaborCreatePage implements OnInit {
     private laborService: LaborService,
     private costCenterService: CostCenterService,
     public loadingController: LoadingController,
-    private workerService: WorkerService,
+    private workerLaborService: WorkerLaborService,
     private location: Location,
     public modalController: ModalController,
     public toastController: ToastController
@@ -83,6 +82,7 @@ export class WorkerLaborCreatePage implements OnInit {
   async presentToast(msg) {
     const toast = await this.toastController.create({
       message: msg,
+      duration: 3000,
       buttons: [
         {
           text: 'Cerrar',
@@ -125,11 +125,11 @@ export class WorkerLaborCreatePage implements OnInit {
     );
     console.log(workerLabor);
 
-    this.workerService.createLabor(workerLabor).subscribe(
+    this.workerLaborService.createLabor(workerLabor).subscribe(
       response => {
 
         this.loading.dismiss();
-        this.presentToast('Labor asignada con éxito!');
+        this.presentToast('Labor asignada con éxito');
         this.location.back();
       },
       error => {

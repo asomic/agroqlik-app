@@ -31,7 +31,7 @@
         <p>{{worker.rut_formated}}</p>
       </div>
       <div class="worker-att" >
-        <ion-toggle *ngIf="workerDay.id" checked="{{!workerDay.absence}}" (ionChange)="absenceChange($event,$event.detail.checked, workerDay.id)"></ion-toggle>
+        <ion-toggle mode="ios" *ngIf="workerDay.id" checked="{{!workerDay.absence}}" (ionChange)="absenceChange($event,$event.detail.checked, workerDay.id)"></ion-toggle>
       </div>
     </div>
   </div>
@@ -135,7 +135,7 @@
         <div class="bonus">
           <div class="header">
             <h4>Bonos</h4>
-            <ion-toggle></ion-toggle>
+            <ion-toggle mode="ios"></ion-toggle>
           </div>
           <!-- <div class="a-bonus" *ngFor="let bono of activity.bonos">
             <div class="item">

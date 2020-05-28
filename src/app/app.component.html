@@ -1,17 +1,24 @@
 <ion-app>
   <ion-menu side="start"  contentId="menuContent" [disabled]="!isAuth">
     <ion-header>
-      <ion-toolbar color="primary">
+      <ion-toolbar>
+      <!-- <ion-toolbar color="primary"> -->
         <ion-title>Menu</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content *ngIf="user" class="menu">
-      <p>
-        <b>{{user.full_name}}</b>
-        <br/>
-        {{user.email}}
-      </p>
-      <button class="button-go" (click)="logout()">Logout</button>
+      <div class="wrapper">
+        <div class="info">
+          <p>
+            <b>{{user.full_name}}</b>
+            <br/>
+            {{user.email}}
+          </p>
+        </div>
+        <button class="button-menu" (click)="logout()">
+          <img src="/assets/icon/logout.svg" />Cerrar Sesión
+        </button>
+      </div>
     </ion-content>
   </ion-menu>
   <ion-router-outlet  id="menuContent"></ion-router-outlet>

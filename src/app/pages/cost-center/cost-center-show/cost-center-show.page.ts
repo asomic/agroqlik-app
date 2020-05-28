@@ -48,7 +48,7 @@ export class CostCenterShowPage implements OnInit {
     async presentToast(msg) {
       const toast = await this.toastController.create({
         message: msg,
-        duration: 5000,
+        duration: 3000,
         buttons: [
           {
             text: 'Cerrar',
@@ -85,9 +85,9 @@ export class CostCenterShowPage implements OnInit {
       response => {
         this.workerDayList[index].absence = response['absence'];
         if(response['absence']) {
-          this.presentToast('Trabajador cambiado a ausente');
+          this.presentToast('Trabajador cambiado a Ausente');
         } else {
-          this.presentToast('Trabajador cambiado a presente');
+          this.presentToast('Trabajador cambiado a Presente');
         }
       }
     );
