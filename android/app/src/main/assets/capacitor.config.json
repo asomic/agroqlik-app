@@ -1,6 +1,6 @@
 {
-  "appId": "com.asomic.agroqlik",
-  "appName": "Agroqlik",
+  "appId": "io.ionic.starter",
+  "appName": "agroqlik",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",
