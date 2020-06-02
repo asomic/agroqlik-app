@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package com.asomic.agroqlik;
 
 import android.os.Bundle;
 
