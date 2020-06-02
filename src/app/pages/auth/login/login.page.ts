@@ -42,17 +42,19 @@ export class LoginPage implements OnInit {
           if(authModel.token){
             loading.dismiss();
             this.router.navigateByUrl('dashboard');
+            authSubscription.unsubscribe();
           } else {
+            loading.dismiss();
             console.log('error auth.token');
+            this.authAlert('Error de token', 'error auth.token.');
+            authSubscription.unsubscribe();
           }
-          authSubscription.unsubscribe();
+          
         },
           err => {
-            console.log(err);
-
             loading.dismiss();
             authSubscription.unsubscribe();
-            this.authAlert(err.error.error,err.error.message);
+            this.authAlert('Error de autenticación','Problema intentando autenticar las credenciales.');
         })
       }
     );

@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 import { WorkerLaborCreatePageRoutingModule } from './worker-labor-create-routing.module';
 
 import { WorkerLaborCreatePage } from './worker-labor-create.page';
-import { IonicSelectableModule } from 'ionic-selectable';
 
 import { LaborListPageModule } from '../../modal/labor-list/labor-list.module';
 
@@ -17,7 +16,6 @@ import { LaborListPageModule } from '../../modal/labor-list/labor-list.module';
     FormsModule,
     IonicModule,
     WorkerLaborCreatePageRoutingModule,
-    IonicSelectableModule,
     LaborListPageModule
   ],
   declarations: [WorkerLaborCreatePage]
