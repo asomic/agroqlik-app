@@ -56,8 +56,10 @@ export class WorkerDayService {
                     new LaborType(labor.labor_type.id, labor.labor_type.text),
                     labor.quantity,
                     labor.value,
-                    labor.total,
-                    labor.total_bonuses,
+                    ​​​labor.bono_colacion,
+                    ​​​labor.bono_transporte,
+                    labor.bono_produccion,
+                    labor.bono_otro,
                   );
                   workerLaborList.push(workerLabor);
                 });
@@ -114,8 +116,10 @@ export class WorkerDayService {
                       new LaborType(labor.labor_type.id, labor.labor_type.text),
                       labor.quantity,
                       labor.value,
-                      labor.total,
-                      labor.total_bonuses,
+                      ​​​labor.bono_colacion,
+                      ​​​labor.bono_transporte,
+                      labor.bono_produccion,
+                      labor.bono_otro,
                     );
                     workerLaborList.push(workerLabor);
                   });
@@ -172,8 +176,10 @@ export class WorkerDayService {
                       new LaborType(labor.labor_type.id, labor.labor_type.text),
                       labor.quantity,
                       labor.value,
-                      labor.total,
-                      labor.total_bonuses,
+                      ​​​labor.bono_colacion,
+                      ​​​labor.bono_transporte,
+                      labor.bono_produccion,
+                      labor.bono_otro,
                     );
                     workerLaborList.push(workerLabor);
                   });

@@ -29,6 +29,10 @@ export class WorkerLaborService {
             labor_type: workerLabor.laborType.id,
             quantity: workerLabor.quantity,
             value: workerLabor.value,
+            colacion: workerLabor.colacion,
+            transporte: workerLabor.transporte,
+            produccion: workerLabor.produccion,
+            otro: workerLabor.otro
           };
 
           const url = auth.domain + '/workers/' + workerLabor.workerId + '/workerlabors/' + workerLabor.id;
@@ -53,7 +57,11 @@ export class WorkerLaborService {
             labor_type: workerLabor.laborType.id,
             quantity: workerLabor.quantity,
             value: workerLabor.value,
-            farmland: auth._farmland
+            farmland: auth._farmland,
+            colacion: workerLabor.colacion,
+            transporte: workerLabor.transporte,
+            produccion: workerLabor.produccion,
+            otro: workerLabor.otro
           };
 
           const url = auth.domain + '/workers/' + workerLabor.workerId + '/workerlabors';

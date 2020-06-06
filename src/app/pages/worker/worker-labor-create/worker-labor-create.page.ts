@@ -53,6 +53,13 @@ export class WorkerLaborCreatePage implements OnInit {
   selectedCostCenter: CostCenter;
   selectedLabor: Labor;
 
+  bonos_open = false;
+  colacionInput = 0;
+  transporteInput = 0;
+  produccionInput = 0;
+  otroInput = 0;
+
+  submitDisabled = true;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -107,7 +114,13 @@ export class WorkerLaborCreatePage implements OnInit {
   }
 
   valueChange() {
-    this.selectedLaborTotal = this.quantityInput * this.valueInput;
+    this.selectedLaborTotal = this.quantityInput * this.valueInput +
+    this.colacionInput + this.transporteInput + this.produccionInput + this.otroInput;
+    if (this.selectedLaborTotal > 0) {
+      this.submitDisabled = false;
+    } else {
+      this.submitDisabled = true;
+    }
   }
 
   storeWorkerLabor(value) {
@@ -126,8 +139,10 @@ export class WorkerLaborCreatePage implements OnInit {
       value.laborTypeInput,
       value.quantityInput,
       value.valueInput,
-      value.valueInput * value.quantityInput,
-      0
+      value.colacionInput,
+      value.transporteInput,
+      value.produccionInput,
+      value.otroInput,
     );
     console.log(workerLabor);
 
@@ -164,6 +179,10 @@ export class WorkerLaborCreatePage implements OnInit {
     });
 
     return await modal.present();
+  }
+
+  toggleBonos(event){
+    this.bonos_open = event;
   }
 
 }

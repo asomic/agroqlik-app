@@ -61,6 +61,7 @@ export class WorkerDayPage implements OnInit {
   LaborTypeOption = 0;
   loading: any;
   index: number;
+  bonos_open = false;
   // form Inputs
   laborIndex: any = 0;
   quantityInput: any = 0;
@@ -68,6 +69,12 @@ export class WorkerDayPage implements OnInit {
   selectedLaborType: LaborType;
   selectedCostCenter: CostCenter;
   selectedLabor: Labor;
+
+  colacionInput = 0;
+  transporteInput = 0;
+  produccionInput = 0;
+  otroInput = 0;
+
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -159,7 +166,9 @@ export class WorkerDayPage implements OnInit {
 
   }
 
-  // methods 
+  toggleBonos(event){
+    this.bonos_open = event;
+  }
 
   toggleCollapsible(i) {
     this.index = i;
@@ -181,7 +190,19 @@ export class WorkerDayPage implements OnInit {
     this.showClose[i] = !this.showClose[i];
     this.quantityInput = this.workerlaborList[i].quantity;
     this.valueInput = this.workerlaborList[i].value;
-    this.selectedLaborTotal = this.quantityInput * this.valueInput;
+    this.colacionInput = this.workerlaborList[i].colacion;
+    this.transporteInput = this.workerlaborList[i].transporte;
+    this.produccionInput = this.workerlaborList[i].produccion;
+    this.otroInput = this.workerlaborList[i].otro;
+
+    let bonos =  this.colacionInput  + this.transporteInput  + this.produccionInput  + this.otroInput ;
+    if(bonos > 0) {
+      this.bonos_open = true;
+    } else {
+      this.bonos_open = false;
+    }
+    
+    this.selectedLaborTotal = this.quantityInput * this.valueInput + bonos;
 
     let workerLabor = this.workerlaborList[i];
 
@@ -235,8 +256,13 @@ export class WorkerDayPage implements OnInit {
     workerLabor.laborType = value.laborTypeInput;
     workerLabor.value = value.valueInput;
     workerLabor.quantity = value.quantityInput;
-    workerLabor.total = value.valueInput*value.quantityInput;
-    console.log(workerLabor);
+    workerLabor.colacion = value.colacionInput;
+    workerLabor.transporte = value.transporteInput;
+    workerLabor.produccion = value.produccionInput;
+    workerLabor.otro = value.otroInput;
+    workerLabor.total = value.valueInput * value.quantityInput +
+     value.colacionInput + value.transporteInput + value.produccionInput + value.otroInput;
+
     this.workerLaborService.updateLabor(workerLabor).subscribe( response => {
       console.log(response);
       this.showCollapsible[this.index] = false;
@@ -293,7 +319,7 @@ export class WorkerDayPage implements OnInit {
   }
 
   valueChange() {
-    this.selectedLaborTotal = this.quantityInput * this.valueInput;
+    this.selectedLaborTotal = this.quantityInput * this.valueInput + this.colacionInput + this.transporteInput + this.produccionInput + this.otroInput;
   }
 
   // laborModal(labor: Labor) {

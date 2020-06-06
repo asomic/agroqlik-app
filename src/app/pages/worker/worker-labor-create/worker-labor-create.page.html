@@ -22,7 +22,7 @@
   <div class="activities no-padding">
   
     <div class="activity-item" >
-      <form id="create" action="" #create="ngForm" class="collapsible" [class.visible]="true" (ngSubmit)="storeWorkerLabor(create.value)">
+      <form id="create" action="" #create="ngForm" class="collapsible" [class.visible]="true" (ngSubmit)="storeWorkerLabor(create.value)" ngNativeValidate>
         <div class="labor">
           <div class="item">
             <h5>Cuartel</h5>
@@ -90,9 +90,28 @@
         <div class="bonus">
           <div class="header">
             <h4>Bonos</h4>
-            <ion-toggle mode="ios"></ion-toggle>
+            <ion-toggle mode="ios" 
+            (ionChange)="toggleBonos($event.detail.checked)" 
+           ></ion-toggle>
           </div>
-
+          <div class="a-bonus" *ngIf="bonos_open">
+            <div class="item">
+              <h5>Colacion</h5>
+              <input type="number" name="colacionInput"  min=0 [(ngModel)]="colacionInput" (change)="valueChange()">   
+            </div>
+            <div class="item">
+              <h5>Transporte</h5>
+              <input type="number" name="transporteInput"  min=0 [(ngModel)]="transporteInput" (change)="valueChange()">   
+            </div>
+            <div class="item">
+              <h5>Produccion</h5>
+              <input type="number" name="produccionInput"  min=0 [(ngModel)]="produccionInput" (change)="valueChange()">   
+            </div>
+            <div class="item">
+              <h5>Otro</h5>
+              <input type="number" name="otroInput"  min=0 [(ngModel)]="otroInput" (change)="valueChange()">   
+            </div>
+          </div>
         </div>
 
       </form>
@@ -108,7 +127,7 @@
         <p>Total</p>
         <h4 >${{selectedLaborTotal}}</h4>
       </div>
-      <button type="submit" form="create" class="button-go">Guardar</button>
+      <button type="submit" form="create" class="button-go " *ngIf="!submitDisabled">Guardar</button>
     </div>
   </ion-toolbar>
 </ion-footer>

@@ -135,21 +135,28 @@
         <div class="bonus">
           <div class="header">
             <h4>Bonos</h4>
-            <ion-toggle mode="ios"></ion-toggle>
+            <ion-toggle mode="ios" 
+            (ionChange)="toggleBonos($event.detail.checked)" 
+            checked="{{bonos_open}}"></ion-toggle>
           </div>
-          <!-- <div class="a-bonus" *ngFor="let bono of activity.bonos">
+          <div class="a-bonus" *ngIf="bonos_open">
             <div class="item">
-              <h5>Tipo de Bono</h5>
-              <select name="bonusExtra">
-                <option value="extra1">Bono 1</option>
-                <option value="extra2">Bono 2</option>
-              </select>
+              <h5>Colacion</h5>
+              <input type="number" name="colacionInput" [value]="workerLabor.colacion" [(ngModel)]="colacionInput" (change)="valueChange()">   
             </div>
             <div class="item">
-              <h5>Valor</h5>
-              <input type="number" placeholder="Ingrese un Valor">
+              <h5>Transporte</h5>
+              <input type="number" name="transporteInput" [value]="workerLabor.transporte" [(ngModel)]="transporteInput" (change)="valueChange()">   
             </div>
-          </div> -->
+            <div class="item">
+              <h5>Produccion</h5>
+              <input type="number" name="produccionInput" [value]="workerLabor.produccion" [(ngModel)]="produccionInput" (change)="valueChange()">   
+            </div>
+            <div class="item">
+              <h5>Otro</h5>
+              <input type="number" name="otroInput" [value]="workerLabor.otro" [(ngModel)]="otroInput" (change)="valueChange()">   
+            </div>
+          </div>
         </div>
         <!-- <button class="button-go" >Guardar</button> -->
       </form>

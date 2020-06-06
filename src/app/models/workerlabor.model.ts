@@ -14,8 +14,12 @@ export class WorkerLabor {
         public laborType: LaborType,
         public quantity: number,
         public value: number,
-        public total =  value * quantity,
-        ​​​public totalBonuses: number
+        ​​​public colacion: number,
+        ​​​public transporte: number,
+        ​​​public produccion: number,
+        public otro: number,
+        public total =  value * quantity + colacion + transporte + produccion + otro,
+        
     ) {}
 
 }
