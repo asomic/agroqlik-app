@@ -19,3 +19,13 @@ export class WorkerLabor {
     ) {}
 
 }
+
+// export class WorkerLaborBonus {
+
+//     constructor(
+//         public id: number,
+//         public bonus: number,
+
+//     ) {}
+
+// }

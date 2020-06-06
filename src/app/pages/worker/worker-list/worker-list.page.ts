@@ -129,8 +129,6 @@ export class WorkerListPage implements OnInit {
         return 0;
       });
     }
-
-
   }
 
 }

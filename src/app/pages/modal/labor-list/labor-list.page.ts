@@ -40,4 +40,8 @@ export class LaborListPage implements OnInit {
     await this.modalController.dismiss(labor);
   }
 
+  async dismissModal() {
+    await this.modalController.dismiss(null);
+  }
+
 }

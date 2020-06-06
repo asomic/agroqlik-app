@@ -1,6 +1,6 @@
 // Angular
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, from , of } from 'rxjs';
+import { BehaviorSubject, from , of, Subscription } from 'rxjs';
 import { Router, ActivatedRoute} from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -35,6 +35,11 @@ export class WorkerLaborCreatePage implements OnInit {
     new LaborType(2, 'Trato'),
     new LaborType(3, 'Hora extra')
   ];
+
+  // Subscription 
+  createLaborSubscription: Subscription;
+  //workerDaysSubscription: Subscription;
+
   dataReturned: any;
   selectedLaborTotal = 0;
   LaborTypeOption = 0;
@@ -71,6 +76,7 @@ export class WorkerLaborCreatePage implements OnInit {
 
   ngOnInit() {
     this.laborService.laborList.subscribe( labor =>{
+      
       this.laborList = labor;
     });
     this.costCenterService.costCenterList.subscribe( costcenter =>{
@@ -125,9 +131,9 @@ export class WorkerLaborCreatePage implements OnInit {
     );
     console.log(workerLabor);
 
-    this.workerLaborService.createLabor(workerLabor).subscribe(
+    this.createLaborSubscription = this.workerLaborService.createLabor(workerLabor).subscribe(
       response => {
-
+        this.createLaborSubscription.unsubscribe();
         this.loading.dismiss();
         this.presentToast('Labor asignada con éxito');
         this.location.back();

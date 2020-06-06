@@ -115,7 +115,6 @@ export class WorkerDayPage implements OnInit {
     toast.present();
   }
 
-  
 
   // loading
   async uploadLoading() {

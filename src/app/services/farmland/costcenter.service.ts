@@ -47,7 +47,7 @@ export class CostCenterService {
         auth => {
           if (this.status) {
             console.log('conectado farmland');
-            const url = auth.domain + '/farmlands/' + auth.farmland + '/costcenters';
+            const url = auth.domain + '/farmlands/' + auth.farmland + '/costcenters?all=true';
             return this.http.get(
               url,
               auth.header

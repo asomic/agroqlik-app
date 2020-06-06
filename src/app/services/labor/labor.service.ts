@@ -60,6 +60,15 @@ export class LaborService {
                     laborList.push(labor);
                   });
                   //storing
+                  laborList.sort((a, b) => {
+                    if (a.name < b.name)  {
+                      return -1;
+                    }
+                    if (a.name > b.name) {
+                      return 1;
+                    }
+                    return 0;
+                  });
                   this.storeLaborList(laborList);
                   this._labors.next(laborList);
                   return laborList;
@@ -72,4 +81,7 @@ export class LaborService {
     private storeLaborList(LaborList: Labor[]) {
       Plugins.Storage.set({ key: "laborList", value: JSON.stringify(LaborList) });
     }
+
+
+
 }

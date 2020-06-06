@@ -81,9 +81,10 @@ export class CostCenterShowPage implements OnInit {
 
   absenceChange( event, value, id, index ) {
     console.log(event);
-    this.workerDayService.absenceChange(id, value).subscribe(
+    this.absenceSubscription = this.workerDayService.absenceChange(id, value).subscribe(
       response => {
         this.workerDayList[index].absence = response['absence'];
+        this.absenceSubscription.unsubscribe();
         if(response['absence']) {
           this.presentToast('Trabajador cambiado a Ausente');
         } else {
