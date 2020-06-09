@@ -30,13 +30,13 @@
     <div class="variety">
       <img src="/assets/img/leaf-icon.png">
       <p>
-        Cerezo - Lapins
+        {{costCenter.specieVarietyName}}
       </p>
     </div>
     <div class="location">
       <img src="/assets/img/locate-icon.png">
       <p>
-        Esta al lado del otro cuartel pero mas abajo del otro cuartel
+        {{costCenter.description}}
       </p>
     </div>
   </div>
@@ -66,7 +66,7 @@
             <p>{{workerDay.workerRut}}</p>
           </div>
           <div class="worker-att">
-            <ion-toggle mode="ios" checked="{{!workerDay.absence}}" (ionChange)="absenceChange($event,$event.detail.checked, workerDay.id,i)" ></ion-toggle>
+            <ion-toggle mode="ios" checked="{{!workerDay.absence}}" (ionChange)="absenceChange($event,$event.detail.checked, workerDay.workerId,i)" ></ion-toggle>
           </div>
         </div>
         <div class="card-body">

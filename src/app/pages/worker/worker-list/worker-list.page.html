@@ -45,7 +45,7 @@
           <p>{{workerDay.workerRut}}</p>
         </div>
         <div class="worker-att">
-          <ion-toggle mode="ios" checked="{{!workerDay.absence}}" (ionChange)="absenceChange($event,$event.detail.checked, workerDay.id,i)" ></ion-toggle>
+          <ion-toggle mode="ios" checked="{{!workerDay.absence}}" (ionChange)="absenceChange($event,$event.detail.checked, workerDay.workerId,i)" ></ion-toggle>
         </div>
       </div>
       <div class="card-body">

@@ -143,8 +143,7 @@ export class WorkerDayService {
     return this.authservice.auth.pipe(
       switchMap(
         auth => {
-
-            const url = auth.domain + '/workers/' + id + '/today';
+            const url = auth.domain + '/farmlands/' + auth.farmland + '/workers/' + id + '/today';
             return this.http.get(
               url,
               auth.header
@@ -213,11 +212,10 @@ export class WorkerDayService {
     return this.authservice.auth.pipe(
       switchMap(
         auth => {
-          console.log('fetch costcenter workerDays');
           const data = {
             absence: absence,
           };
-          const url = auth.domain + '/farmlands/' + auth.farmland + '/workerdays/' + id + '/absence';
+          const url = auth.domain + '/farmlands/' + auth.farmland + '/workers/' + id + '/absence';
           return this.http.post(
             url,
             data,
@@ -234,5 +232,30 @@ export class WorkerDayService {
       )
     );
   }
+
+  // absenceAdd(id: string, absence: boolean) {
+  //   return this.authservice.auth.pipe(
+  //     switchMap(
+  //       auth => {
+  //         const data = {
+  //           absence: absence,
+  //         };
+  //         const url = auth.domain + '/farmlands/' + auth.farmland + '/worker/' + id + '/absence';
+  //         return this.http.post(
+  //           url,
+  //           data,
+  //           auth.header
+  //           ).pipe( map (
+  //             response => {
+  //               return response;
+  //             },
+  //             error => {
+  //               return error;
+  //             })
+  //           );
+  //         }
+  //     )
+  //   );
+  // }
 }
 

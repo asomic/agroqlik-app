@@ -139,10 +139,10 @@ export class WorkerLaborCreatePage implements OnInit {
       value.laborTypeInput,
       value.quantityInput,
       value.valueInput,
-      value.colacionInput,
-      value.transporteInput,
-      value.produccionInput,
-      value.otroInput,
+      value.colacionInput || 0,
+      value.transporteInput || 0,
+      value.produccionInput || 0,
+      value.otroInput || 0,
     );
     console.log(workerLabor);
 

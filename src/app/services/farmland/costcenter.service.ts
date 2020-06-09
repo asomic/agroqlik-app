@@ -46,8 +46,7 @@ export class CostCenterService {
       switchMap(
         auth => {
           if (this.status) {
-            console.log('conectado farmland');
-            const url = auth.domain + '/farmlands/' + auth.farmland + '/costcenters?all=true';
+            const url = auth.domain + '/farmlands/' + auth.farmland + '/costcenters';
             return this.http.get(
               url,
               auth.header
@@ -58,8 +57,7 @@ export class CostCenterService {
                       element.id,
                       element.name,
                       element.description,
-                      element.variety_name,
-                      element.specie_name,
+                      element.specie_variety_name,
                       element.today_labors,
                       element.today_workerdays,
                       element.today_total,
@@ -99,8 +97,7 @@ export class CostCenterService {
                   response['data'].id,
                   response['data'].name,
                   response['data'].description,
-                  response['data'].variety_name,
-                  response['data'].specie_name,
+                  response['data'].specie_variety_name,
                   response['data'].today_labors,
                   response['data'].today_workerdays,
                   response['data'].today_total,

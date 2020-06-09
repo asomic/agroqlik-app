@@ -61,43 +61,27 @@
 
   <div class="cost-centers">
     
-    <div class="card" [routerLink]="['/cost-center-show',costCenter.id]" *ngFor="let costCenter of costCenterList">
-      <h3>{{costCenter.name }}</h3>
-      <div class="location">
-        <img src="/assets/img/locate-icon.png">
-        <p>Al lado de fruta</p>
-      </div>
-      <div class="stats card-stats">
-        <div class="stat-item">
-          <h2>{{costCenter.todayWorkerDays}}</h2>
-          <p>Trabajadores</p>
+      <div class="card" [routerLink]="['/cost-center-show',costCenter.id]"   *ngFor="let costCenter of costCenterList">
+      
+        <h3>{{costCenter.name }}</h3>
+        <div class="location">
+          <img src="/assets/img/locate-icon.png">
+          <p> {{costCenter.description}}</p>
         </div>
-        <div class="stat-item">
-          <h2>{{costCenter.todayLabors}}</h2>
-          <p>Labores</p>
+        <div class="stats card-stats">
+          <div class="stat-item">
+            <h2>{{costCenter.todayWorkerDays}}</h2>
+            <p>Trabajadores</p>
+          </div>
+          <div class="stat-item">
+            <h2>{{costCenter.todayLabors}}</h2>
+            <p>Labores</p>
+          </div>
         </div>
-      </div>
+      
     </div>
-
-    <!-- <div class="card" [routerLink]="['/cost-center-show/1']">
-      <h3>Cuartel fruta 2</h3>
-      <div class="location">
-        <img src="/assets/img/locate-icon.png">
-        <p>Esta al lado del otro cuartel pero mas abajo del otro cuartel</p>
-      </div>
-      <div class="stats card-stats">
-        <div class="stat-item">
-          <h2>82</h2>
-          <p>Trabajadores</p>
-        </div>
-        <div class="stat-item">
-          <h2>3</h2>
-          <p>Actividades</p>
-        </div>
-      </div>
-    </div> -->
-
   </div>
+
 
 
 </ion-content>

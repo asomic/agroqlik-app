@@ -12,9 +12,10 @@ import { WorkerDayService } from '../../../services/worker/workerday.service';
 import { WorkerLaborService } from '../../../services/worker/workerlabor.service';
 import { CostCenterService } from '../../../services/farmland/costcenter.service';
 import { LaborService } from './../../../services/labor/labor.service';
-
+import { FarmlandService } from './../../../services/farmland/farmland.service';
 // Models
 import { Worker } from '../../../models/worker.model';
+
 import { WorkerDay } from '../../../models/workerday.model';
 import { WorkerLabor } from '../../../models/workerlabor.model';
 import { CostCenter } from '../../../models/costcenter.model';
@@ -48,6 +49,7 @@ export class WorkerDayPage implements OnInit {
     new LaborType(2, 'Trato'),
     new LaborType(3, 'Hora extra')
   ];
+  farmland: any;
   dataReturned: any;
   showCollapsible: Array<boolean> = [];
   showEdit: Array<boolean> = [];
@@ -83,6 +85,7 @@ export class WorkerDayPage implements OnInit {
     private workerLaborService: WorkerLaborService,
     private costCenterService: CostCenterService,
     private laborService: LaborService,
+    private farmlandService: FarmlandService,
     private formBuilder: FormBuilder,
     public loadingController: LoadingController,
     public alertController: AlertController,
@@ -100,6 +103,11 @@ export class WorkerDayPage implements OnInit {
       response => {
         this.costCenterList = response;
         this.costCenterListSubscription.unsubscribe();
+      }
+    );
+    const farmlandServiceSubscribe = this.farmlandService.getFarmland().subscribe( response => {
+      this.farmland = response.name;
+      farmlandServiceSubscribe.unsubscribe();
       }
     );
   }
@@ -256,10 +264,10 @@ export class WorkerDayPage implements OnInit {
     workerLabor.laborType = value.laborTypeInput;
     workerLabor.value = value.valueInput;
     workerLabor.quantity = value.quantityInput;
-    workerLabor.colacion = value.colacionInput;
-    workerLabor.transporte = value.transporteInput;
-    workerLabor.produccion = value.produccionInput;
-    workerLabor.otro = value.otroInput;
+    workerLabor.colacion = value.colacionInput || 0;
+    workerLabor.transporte = value.transporteInput || 0;
+    workerLabor.produccion = value.produccionInput || 0;
+    workerLabor.otro = value.otroInput || 0;
     workerLabor.total = value.valueInput * value.quantityInput +
      value.colacionInput + value.transporteInput + value.produccionInput + value.otroInput;
 
@@ -273,6 +281,7 @@ export class WorkerDayPage implements OnInit {
       this.presentToast('Labor modificada con éxito');
     },
     error => {
+      console.log(error);
       this.loading.dismiss();
     });
 
@@ -298,8 +307,12 @@ export class WorkerDayPage implements OnInit {
             this.deleteWorkerLaborSubscription = this.workerLaborService.deleteLabor(workerLabor).subscribe(
               response => {
                 this.workerlaborList = this.workerlaborList.filter(({ id }) => id !== workerLabor.id);
-                this.deleteWorkerLaborSubscription.unsubscribe();
+                
                 this.presentToast('Labor eliminada con éxito');
+                if(this.workerlaborList.length == 0) { 
+                  this.workerDay.id = null;
+                }
+
               }, error => {
                 console.log(error);
                 this.deleteWorkerLaborSubscription.unsubscribe();
@@ -346,19 +359,16 @@ export class WorkerDayPage implements OnInit {
   }
   //  ausente
   absenceChange( event, value, id ) {
-    console.log(event);
-    this.workerDayService.absenceChange(id, value).subscribe(
+
+    const workerDayServiceSubscription =  this.workerDayService.absenceChange(id, value).subscribe(
       response => {
-        // console.log('evento');
-        // console.log(event);
-        // console.log('respuesta');
-        // console.log(response);
         this.workerDay.absence = response['absence'];
         if(response['absence']) {
           this.presentToast('Trabajador cambiado a Ausente');
         } else {
           this.presentToast('Trabajador cambiado a Presente');
         }
+        workerDayServiceSubscription.unsubscribe();
         
       }
     );

@@ -81,6 +81,7 @@ export class DashboardPage implements OnInit {
         this.CostCenterListSubscription = this.costCenterService.fetchCostCenterList().subscribe(
           response => {
             this.costCenterList = response;
+            this.costCenterList = this.costCenterList.filter(item => item.todayWorkerDays > 0);
             this.CostCenterListSubscription.unsubscribe();
           }
         );

@@ -29,9 +29,10 @@
       <div class="info">
         <h2>{{worker.fullName}}</h2>
         <p>{{worker.rut_formated}}</p>
+        
       </div>
       <div class="worker-att" >
-        <ion-toggle mode="ios" *ngIf="workerDay.id" checked="{{!workerDay.absence}}" (ionChange)="absenceChange($event,$event.detail.checked, workerDay.id)"></ion-toggle>
+        <ion-toggle mode="ios" *ngIf="workerDay.id" checked="{{!workerDay.absence || true}}" (ionChange)="absenceChange($event,$event.detail.checked, worker.id)"></ion-toggle>
       </div>
     </div>
   </div>
@@ -43,7 +44,7 @@
 
   <div class="activities" *ngIf="workerDay">
     
-    <h3>Labores Asignadas</h3>
+    <h3>{{farmland}} <br>Labores Asignadas</h3>
 
     <div class="activity-item" *ngFor="let workerLabor of workerlaborList; let i = index">
           

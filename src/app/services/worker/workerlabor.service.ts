@@ -29,10 +29,10 @@ export class WorkerLaborService {
             labor_type: workerLabor.laborType.id,
             quantity: workerLabor.quantity,
             value: workerLabor.value,
-            colacion: workerLabor.colacion,
-            transporte: workerLabor.transporte,
-            produccion: workerLabor.produccion,
-            otro: workerLabor.otro
+            colacion: workerLabor.colacion || 0,
+            transporte: workerLabor.transporte || 0,
+            produccion: workerLabor.produccion || 0,
+            otro: workerLabor.otro || 0,
           };
 
           const url = auth.domain + '/workers/' + workerLabor.workerId + '/workerlabors/' + workerLabor.id;
