@@ -33,7 +33,8 @@ export class WorkerLaborCreatePage implements OnInit {
   public laborTypeList: LaborType[] = [
     new LaborType(1, 'Jornada'),
     new LaborType(2, 'Trato'),
-    new LaborType(3, 'Hora extra')
+    new LaborType(3, 'Hora extra'),
+    new LaborType(4, 'Hora trabajada'),
   ];
 
   // Subscription 
@@ -49,6 +50,7 @@ export class WorkerLaborCreatePage implements OnInit {
   laborIndex: any = 0;
   quantityInput: any = 0;
   valueInput: any = 0;
+  productionInput: any = 0;
   selectedLaborType: LaborType;
   selectedCostCenter: CostCenter;
   selectedLabor: Labor;
@@ -139,6 +141,7 @@ export class WorkerLaborCreatePage implements OnInit {
       value.laborTypeInput,
       value.quantityInput,
       value.valueInput,
+      value.productionInput,
       value.colacionInput || 0,
       value.transporteInput || 0,
       value.produccionInput || 0,
