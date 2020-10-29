@@ -90,6 +90,7 @@ export class CostCenterShowPage implements OnInit {
         } else {
           this.presentToast('Trabajador cambiado a Presente');
         }
+        this.ionViewWillEnter();
       }
     );
   }

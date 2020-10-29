@@ -14,6 +14,7 @@ export class WorkerLabor {
         public laborType: LaborType,
         public quantity: number,
         public value: number,
+        public production: number,
         ​​​public colacion: number,
         ​​​public transporte: number,
         ​​​public produccion: number,

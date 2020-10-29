@@ -56,6 +56,7 @@ export class WorkerDayService {
                     new LaborType(labor.labor_type.id, labor.labor_type.text),
                     labor.quantity,
                     labor.value,
+                    labor.production,
                     ​​​labor.bono_colacion,
                     ​​​labor.bono_transporte,
                     labor.bono_produccion,
@@ -116,6 +117,7 @@ export class WorkerDayService {
                       new LaborType(labor.labor_type.id, labor.labor_type.text),
                       labor.quantity,
                       labor.value,
+                      labor.production,
                       ​​​labor.bono_colacion,
                       ​​​labor.bono_transporte,
                       labor.bono_produccion,
@@ -175,6 +177,7 @@ export class WorkerDayService {
                       new LaborType(labor.labor_type.id, labor.labor_type.text),
                       labor.quantity,
                       labor.value,
+                      labor.production,
                       ​​​labor.bono_colacion,
                       ​​​labor.bono_transporte,
                       labor.bono_produccion,
@@ -233,29 +236,5 @@ export class WorkerDayService {
     );
   }
 
-  // absenceAdd(id: string, absence: boolean) {
-  //   return this.authservice.auth.pipe(
-  //     switchMap(
-  //       auth => {
-  //         const data = {
-  //           absence: absence,
-  //         };
-  //         const url = auth.domain + '/farmlands/' + auth.farmland + '/worker/' + id + '/absence';
-  //         return this.http.post(
-  //           url,
-  //           data,
-  //           auth.header
-  //           ).pipe( map (
-  //             response => {
-  //               return response;
-  //             },
-  //             error => {
-  //               return error;
-  //             })
-  //           );
-  //         }
-  //     )
-  //   );
-  // }
 }
 

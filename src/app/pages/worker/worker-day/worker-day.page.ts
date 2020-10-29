@@ -47,7 +47,8 @@ export class WorkerDayPage implements OnInit {
   public laborTypeList: LaborType[] = [
     new LaborType(1, 'Jornada'),
     new LaborType(2, 'Trato'),
-    new LaborType(3, 'Hora extra')
+    new LaborType(3, 'Hora extra'),
+    new LaborType(4, 'Hora trabajada')
   ];
   farmland: any;
   dataReturned: any;
@@ -68,6 +69,7 @@ export class WorkerDayPage implements OnInit {
   laborIndex: any = 0;
   quantityInput: any = 0;
   valueInput: any = 0;
+  productionInput: any = 0;
   selectedLaborType: LaborType;
   selectedCostCenter: CostCenter;
   selectedLabor: Labor;
@@ -198,6 +200,7 @@ export class WorkerDayPage implements OnInit {
     this.showClose[i] = !this.showClose[i];
     this.quantityInput = this.workerlaborList[i].quantity;
     this.valueInput = this.workerlaborList[i].value;
+    this.productionInput = this.workerlaborList[i].production;
     this.colacionInput = this.workerlaborList[i].colacion;
     this.transporteInput = this.workerlaborList[i].transporte;
     this.produccionInput = this.workerlaborList[i].produccion;
@@ -212,6 +215,7 @@ export class WorkerDayPage implements OnInit {
     
     this.selectedLaborTotal = this.quantityInput * this.valueInput + bonos;
 
+    
     let workerLabor = this.workerlaborList[i];
 
     this.laborIndex = i;
@@ -256,34 +260,41 @@ export class WorkerDayPage implements OnInit {
   }
 
   updateWorkerLabor(value) {
-    this.uploadLoading();
-    console.log(value);
-    let workerLabor = this.workerlaborList[value.indexInput];
-    workerLabor.costCenter = value.costCenterInput;
-    workerLabor.labor = value.laborInput;
-    workerLabor.laborType = value.laborTypeInput;
-    workerLabor.value = value.valueInput;
-    workerLabor.quantity = value.quantityInput;
-    workerLabor.colacion = value.colacionInput || 0;
-    workerLabor.transporte = value.transporteInput || 0;
-    workerLabor.produccion = value.produccionInput || 0;
-    workerLabor.otro = value.otroInput || 0;
-    workerLabor.total = value.valueInput * value.quantityInput +
-     value.colacionInput + value.transporteInput + value.produccionInput + value.otroInput;
+    this.uploadLoading().then(() => {
+      console.log('vamos a actualizar la labor');
+      console.log(value);
+      let workerLabor = this.workerlaborList[value.indexInput];
+      workerLabor.costCenter = value.costCenterInput;
+      workerLabor.labor = value.laborInput;
+      workerLabor.laborType = value.laborTypeInput;
+      workerLabor.value = value.valueInput;
+      workerLabor.quantity = value.quantityInput;
+      workerLabor.production = value.productionInput || 0;
+      workerLabor.colacion = value.colacionInput || 0;
+      workerLabor.transporte = value.transporteInput || 0;
+      workerLabor.produccion = value.produccionInput || 0;
+      workerLabor.otro = value.otroInput || 0;
+      workerLabor.total = value.valueInput * value.quantityInput +
+       value.colacionInput + value.transporteInput + value.produccionInput + value.otroInput;
+  
+      this.workerLaborService.updateLabor(workerLabor).subscribe( 
+        response => {
+          console.log(response);
+          this.showCollapsible[this.index] = false;
+          this.showEdit[this.index] = !this.showEdit[this.index];
+          this.showClose[this.index] = !this.showClose[this.index];
+          this.showFooter = false;
+          this.loading.dismiss();
+          this.presentToast('Labor modificada con éxito');
+        },
+        error => {
+          console.log(error);
+          this.loading.dismiss();
+        }
+      );
 
-    this.workerLaborService.updateLabor(workerLabor).subscribe( response => {
-      console.log(response);
-      this.showCollapsible[this.index] = false;
-      this.showEdit[this.index] = !this.showEdit[this.index];
-      this.showClose[this.index] = !this.showClose[this.index];
-      this.showFooter = false;
-      this.loading.dismiss();
-      this.presentToast('Labor modificada con éxito');
-    },
-    error => {
-      console.log(error);
-      this.loading.dismiss();
     });
+
 
   }
 

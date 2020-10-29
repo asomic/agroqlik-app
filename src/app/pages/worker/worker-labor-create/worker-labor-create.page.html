@@ -35,18 +35,6 @@
             <select name="laborInput" [(ngModel)]="selectedLabor" required (click)="laborModal(selectedLabor)" onmousedown="(function(e){ e.preventDefault(); })(event, this)">
               <option *ngFor="let labor of laborList" [ngValue]="labor">{{labor.name}}</option>
             </select>
-            <!-- <ion-item>
-              
-              <ionic-selectable
-              name="laborInput"
-              [(ngModel)]="selectedLabor"
-              [items]="laborList"
-              itemValueField="id"
-              itemTextField="name"
-              [canSearch]="true"
-              >
-            </ionic-selectable>
-            </ion-item> -->
 
 
           </div>
@@ -85,6 +73,20 @@
             <div class="item" *ngIf="LaborTypeOption == 3">
               <h5>Valor hora</h5>
               <input type="number" name="valueInput" value="0" [(ngModel)]="valueInput" (change)="valueChange()">         
+            </div>
+            <!-- labor tipo  hora trabajada  -->
+            <div class="item" *ngIf="LaborTypeOption == 4">
+              <h5>Cantidad de horas</h5>
+              <input type="number" name="quantityInput" value="0" [(ngModel)]="quantityInput" (change)="valueChange()">         
+            </div>
+            <div class="item" *ngIf="LaborTypeOption == 4">
+              <h5>Valor hora</h5>
+              <input type="number" name="valueInput" value="0" [(ngModel)]="valueInput" (change)="valueChange()">         
+            </div>
+            <!-- Produccion (estadistica) -->
+            <div class="item" >
+              <h5>Produccion (estadistica)</h5>
+              <input type="number" name="productionInput" value="0" [(ngModel)]="productionInput" >         
             </div>
         </div>
         <div class="bonus">
