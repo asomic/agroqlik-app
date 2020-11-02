@@ -129,38 +129,42 @@ export class WorkerLaborCreatePage implements OnInit {
     console.log(value);
     const id = this.activatedRoute.snapshot.paramMap.get('worker');
 
-    this.uploadLoading();
-    // console.log(value);
-    const workerLabor = new WorkerLabor(
-      null,
-      Number(id),
-      null,
-      1,
-      value.costCenterInput,
-      value.laborInput,
-      value.laborTypeInput,
-      value.quantityInput,
-      value.valueInput,
-      value.productionInput,
-      value.colacionInput || 0,
-      value.transporteInput || 0,
-      value.produccionInput || 0,
-      value.otroInput || 0,
-    );
-    console.log(workerLabor);
+    this.uploadLoading().then(() => {
+      const workerLabor = new WorkerLabor(
+        null,
+        Number(id),
+        null,
+        1,
+        value.costCenterInput,
+        value.laborInput,
+        value.laborTypeInput,
+        value.quantityInput,
+        value.valueInput,
+        value.productionInput,
+        value.colacionInput || 0,
+        value.transporteInput || 0,
+        value.produccionInput || 0,
+        value.otroInput || 0,
+      );
+      console.log(workerLabor);
+  
+      this.createLaborSubscription = this.workerLaborService.createLabor(workerLabor).subscribe(
+        response => {
+          this.createLaborSubscription.unsubscribe();
+          this.loading.dismiss();
+          this.presentToast('Labor asignada con éxito');
+          this.location.back();
+        },
+        error => {
+          console.log(error);
+          this.loading.dismiss();
+        }
+      );
 
-    this.createLaborSubscription = this.workerLaborService.createLabor(workerLabor).subscribe(
-      response => {
-        this.createLaborSubscription.unsubscribe();
-        this.loading.dismiss();
-        this.presentToast('Labor asignada con éxito');
-        this.location.back();
-      },
-      error => {
-        console.log(error);
-        this.loading.dismiss();
-      }
-    );
+
+    });
+    // console.log(value);
+    
 
   }
 
