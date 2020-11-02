@@ -27,6 +27,8 @@ export class DashboardPage implements OnInit {
   farmlandList: Farmland[];
   farmland: Farmland ;
   costCenterList: CostCenter[];
+  costCenterListFiltered: CostCenter[];
+
   costCenter: CostCenter ;
   currentDate: Date;
 
@@ -82,6 +84,7 @@ export class DashboardPage implements OnInit {
           response => {
             this.costCenterList = response;
             this.costCenterList = this.costCenterList.filter(item => item.todayWorkerDays > 0);
+            this.costCenterListFiltered = this.costCenterList;
             this.CostCenterListSubscription.unsubscribe();
           }
         );
@@ -98,6 +101,12 @@ export class DashboardPage implements OnInit {
   onFarmlandSelect(event: any) {
     this.authService.setFarm(event.target.value);
     this.ionViewWillEnter();
+  }
+
+  onSearchChange(searchValue: string): void {  
+    console.log(searchValue);
+    this.costCenterListFiltered = this.costCenterList.filter(item => item.name.toLowerCase().includes(searchValue.toLowerCase()));
+    console.log(this.costCenterListFiltered);
   }
 
 }

@@ -5,13 +5,8 @@
 export const environment = {
   production: false,
   apikey: 'W0IH0dMUmIDduBGlLO0WUFh8HLJOkoiRq9ptTbbV',
-<<<<<<< HEAD
-  // domain: 'http://agroqlik-api.test',
-  domain: 'https://agroqlikapi.asomic.com',
-=======
   //domain: 'http://agroqlik-api.test',
   domain: 'http://agroqlikapi2.asomic.com',
->>>>>>> b9d8fdfd881b995bfd518089a02d0439b5be42ff
 };
 
 /*
