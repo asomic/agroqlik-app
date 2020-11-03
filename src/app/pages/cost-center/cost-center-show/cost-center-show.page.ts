@@ -26,6 +26,8 @@ export class CostCenterShowPage implements OnInit {
   costCenter: CostCenter ;
   workerDayList: WorkerDay[] = [];
 
+  currentDate: Date;
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private costCenterService: CostCenterService,
@@ -63,6 +65,7 @@ export class CostCenterShowPage implements OnInit {
     }
 
   ionViewWillEnter() {
+    this.currentDate = new Date();
     let id = this.activatedRoute.snapshot.paramMap.get('costcenter');
     console.log(id);
     this.CostCenterSubscription = this.costCenterService.fetchCostCenter(id).subscribe(

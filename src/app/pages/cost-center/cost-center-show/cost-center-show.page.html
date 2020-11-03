@@ -34,9 +34,15 @@
       </p>
     </div>
     <div class="location">
-      <img src="/assets/img/locate-icon.png">
+      <img src="/assets/icon/location.svg">
       <p>
         {{costCenter.farmland}} - {{costCenter.description}} 
+      </p>
+    </div>
+    <div class="date">
+      <img src="/assets/icon/date.svg">
+      <p>
+        {{currentDate | date:'d' }} de <span style="text-transform: capitalize">{{currentDate | date:'MMMM'}}</span> del {{currentDate | date:'yyyy'}}
       </p>
     </div>
   </div>
