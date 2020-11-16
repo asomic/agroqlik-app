@@ -10,6 +10,7 @@ export class WorkerLabor {
         public workerDayId: number,
         public status: number,
         public costCenter: CostCenter,
+        public cuadrilla: number,
         public labor: Labor,
         public laborType: LaborType,
         public quantity: number,
