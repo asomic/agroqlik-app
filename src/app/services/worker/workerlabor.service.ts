@@ -25,6 +25,7 @@ export class WorkerLaborService {
           const data = {
             id: workerLabor.id,
             cost_center: workerLabor.costCenter.id,
+            cuadrilla: workerLabor.cuadrilla,
             labor: workerLabor.labor.id,
             labor_type: workerLabor.laborType.id,
             quantity: workerLabor.quantity,
@@ -54,6 +55,7 @@ export class WorkerLaborService {
           const data = {
             worker: workerLabor.workerId,
             cost_center: workerLabor.costCenter.id,
+            cuadrilla: workerLabor.cuadrilla,
             labor: workerLabor.labor.id,
             labor_type: workerLabor.laborType.id,
             quantity: workerLabor.quantity,

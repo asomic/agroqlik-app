@@ -6,9 +6,9 @@
         <ion-title>Menu</ion-title>
       </ion-toolbar>
     </ion-header>
-    <ion-content *ngIf="user" class="menu">
+    <ion-content  class="menu">
       <div class="wrapper">
-        <div class="info">
+        <div class="info" *ngIf="user">
           <p>
             <b>{{user.full_name}}</b>
             <br/>

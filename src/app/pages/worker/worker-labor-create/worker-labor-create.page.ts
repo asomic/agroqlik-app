@@ -50,6 +50,7 @@ export class WorkerLaborCreatePage implements OnInit {
   laborIndex: any = 0;
   quantityInput: any = 0;
   valueInput: any = 0;
+  cuadrillaInput: any;
   productionInput: any = 0;
   selectedLaborType: LaborType;
   selectedCostCenter: CostCenter;
@@ -136,6 +137,7 @@ export class WorkerLaborCreatePage implements OnInit {
         null,
         1,
         value.costCenterInput,
+        value.cuadrillaInput,
         value.laborInput,
         value.laborTypeInput,
         value.quantityInput,

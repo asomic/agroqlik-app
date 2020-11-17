@@ -70,6 +70,7 @@ export class WorkerDayPage implements OnInit {
   quantityInput: any = 0;
   valueInput: any = 0;
   productionInput: any = 0;
+  cuadrillaInput: any;
   selectedLaborType: LaborType;
   selectedCostCenter: CostCenter;
   selectedLabor: Labor;
@@ -200,6 +201,7 @@ export class WorkerDayPage implements OnInit {
     this.showClose[i] = !this.showClose[i];
     this.quantityInput = this.workerlaborList[i].quantity;
     this.valueInput = this.workerlaborList[i].value;
+    this.cuadrillaInput = this.workerlaborList[i].cuadrilla;
     this.productionInput = this.workerlaborList[i].production;
     this.colacionInput = this.workerlaborList[i].colacion;
     this.transporteInput = this.workerlaborList[i].transporte;
@@ -265,6 +267,7 @@ export class WorkerDayPage implements OnInit {
       console.log(value);
       let workerLabor = this.workerlaborList[value.indexInput];
       workerLabor.costCenter = value.costCenterInput;
+      workerLabor.cuadrilla = value.cuadrillaInput;
       workerLabor.labor = value.laborInput;
       workerLabor.laborType = value.laborTypeInput;
       workerLabor.value = value.valueInput;

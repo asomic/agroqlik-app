@@ -30,6 +30,10 @@
               <option *ngFor="let costCenter of costCenterList" [ngValue]="costCenter">{{costCenter.name}}</option>
             </select>
           </div>
+          <div class="item" >
+            <h5>N° Cuadrilla</h5>
+            <input type="number" name="cuadrillaInput" value="" [(ngModel)]="cuadrillaInput" >         
+          </div>
           <div class="item">
             <h5>Labor</h5>
             <select name="laborInput" [(ngModel)]="selectedLabor" required (click)="laborModal(selectedLabor)" onmousedown="(function(e){ e.preventDefault(); })(event, this)">
